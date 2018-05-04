@@ -1,4 +1,4 @@
-<%--
+<%@ page import="cn.ningxy.service.UserServer" %><%--
   Created by IntelliJ IDEA.
   User: ningxy
   Date: 2018/5/3
@@ -18,14 +18,20 @@
 
 </head>
 <body>
+<%
+    String userNow = new UserServer().getUserNow(request);
+    if(userNow == null) {
+        userNow = "";
+    }
+%>
 <script type="text/javascript">
-    function  sub(){
+    $(document).ready(function (){
         $.ajax({
             dataType:"json",    //数据类型为json格式
             contentType: "application/x-www-form-urlencoded;",
             type:"POST",
             url:"ShowProfileServlet",
-            data:{userName:"sundehui"},
+            data:{userName:"<%=userNow%>"},
             statusCode: {404: function() {
                     alert('page not found'); }
             },
@@ -40,7 +46,7 @@
                 $("#class").attr("value",data.userClass);
             }
         });
-    }
+    });
 </script>
 
 <header>
@@ -77,7 +83,6 @@
         </div>
     </nav>
 </header>
-<input type="button" value="点击获取结果" id="btn" onclick="sub()">
 <div class="container">
     <div class="row clearfix" style="margin-top: 30px">
         <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">

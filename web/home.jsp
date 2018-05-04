@@ -261,10 +261,6 @@
                                 }
                             }
                         %>
-                        <%--<span style="color: #d559ff;"></span>--%>
-                        <%--<a href="#" style="color: xxx">xiaowuga</a>--%>
-                        <%--于--%>
-                        <%--<time>08:17</time>--%>
                     </p>
                 </div>
             </div>
@@ -272,8 +268,6 @@
     </div>
 </main>
 <%@include file="footer.jsp"%>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
 <%
     //    获取当前用户
