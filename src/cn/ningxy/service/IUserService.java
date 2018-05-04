@@ -52,9 +52,9 @@ public interface IUserService {
     * @Author: ningxy
     * @Description: 获取用户详细信息
     * @params: [userName]
-    * @return: java.util.ArrayList<cn.ningxy.bean.User>
+    * @return: cn.ningxy.bean.User
     * @Date: 2018/5/3 下午9:51
     */
-    public ArrayList<User> getUserInfo(String userName) throws Exception;
+    public User getUserInfo(String userName) throws Exception;
 
 }

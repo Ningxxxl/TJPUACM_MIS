@@ -302,7 +302,7 @@ public class UserDaoServer implements IUserDaoService {
             ResultSet resultSet = preparedStatement.getResultSet();
             resultSet.next();
 
-            if(Integer.valueOf(resultSet.getString(1)) > 0) {
+            if (Integer.valueOf(resultSet.getString(1)) > 0) {
                 result = true;
             } else {
                 result = false;
@@ -328,11 +328,11 @@ public class UserDaoServer implements IUserDaoService {
      * @Author: ningxy
      * @Description:
      * @params: [userName]
-     * @return: java.util.ArrayList<cn.ningxy.bean.User>
+     * @return: cn.ningxy.bean.User
      * @Date: 2018/5/3 下午9:18
      */
     @Override
-    public ArrayList<User> getUserInfo(String userName) throws Exception {
+    public User getUserInfo(String userName) throws Exception {
 
         String sql = "SELECT\n" +
                 "\tusername,\n" +
@@ -356,26 +356,24 @@ public class UserDaoServer implements IUserDaoService {
 
         preparedStatement.setString(1, userName);
 
-        ArrayList<User> userInfo = new ArrayList<>();
+        User userInfo = new User();
 
         try {
             preparedStatement.executeQuery();
             ResultSet resultSet = preparedStatement.getResultSet();
 
-            while(resultSet.next()) {
-                String userName1 = resultSet.getString(1);
-                String userRealName = resultSet.getString(2);
-                String userEmail = resultSet.getString(3);
-                String userNo = resultSet.getString(4);
-                String userSchool = resultSet.getString(5);
-                String userDept = resultSet.getString(6);
-                String userMajor = resultSet.getString(7);
-                String userClass = resultSet.getString(8);
+            resultSet.next();
+            String userName1 = resultSet.getString(1);
+            String userRealName = resultSet.getString(2);
+            String userEmail = resultSet.getString(3);
+            String userNo = resultSet.getString(4);
+            String userSchool = resultSet.getString(5);
+            String userDept = resultSet.getString(6);
+            String userMajor = resultSet.getString(7);
+            String userClass = resultSet.getString(8);
 
-                User user = new User(userName1, userRealName, userEmail, userNo, userSchool, userDept, userMajor, userClass);
+            userInfo = new User(userName1, userRealName, userEmail, userNo, userSchool, userDept, userMajor, userClass);
 
-                userInfo.add(user);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -116,7 +116,7 @@ public class UserServer implements IUserService {
      * @Date: 2018/5/3 下午9:51
      */
     @Override
-    public ArrayList<User> getUserInfo(String userName) throws Exception {
+    public User getUserInfo(String userName) throws Exception {
         return new UserDaoServer().getUserInfo(userName);
     }
 }

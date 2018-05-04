@@ -20,8 +20,14 @@ public class User {
     public String toString() {
         return "User{" +
                 "userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
                 ", userRealName='" + userRealName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
+                ", userNo='" + userNo + '\'' +
+                ", userSchool='" + userSchool + '\'' +
+                ", userDept='" + userDept + '\'' +
+                ", userMajor='" + userMajor + '\'' +
+                ", userClass='" + userClass + '\'' +
                 '}';
     }
 

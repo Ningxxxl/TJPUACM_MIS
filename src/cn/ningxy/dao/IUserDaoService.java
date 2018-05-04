@@ -79,8 +79,8 @@ public interface IUserDaoService {
     * @Author: ningxy
     * @Description:
     * @params: [userName]
-    * @return: java.util.ArrayList<cn.ningxy.bean.User>
+    * @return: cn.ningxy.bean.User
     * @Date: 2018/5/3 下午9:18
     */
-    public ArrayList<User> getUserInfo(String userName) throws Exception;
+    public User getUserInfo(String userName) throws Exception;
 }

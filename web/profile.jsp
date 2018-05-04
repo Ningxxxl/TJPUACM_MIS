@@ -18,6 +18,31 @@
 
 </head>
 <body>
+<script type="text/javascript">
+    function  sub(){
+        $.ajax({
+            dataType:"json",    //数据类型为json格式
+            contentType: "application/x-www-form-urlencoded;",
+            type:"POST",
+            url:"ShowProfileServlet",
+            data:{userName:"sundehui"},
+            statusCode: {404: function() {
+                    alert('page not found'); }
+            },
+            success:function(data){
+                $("#username").attr("placeholder",data.userName);
+                $("#real_name").attr("value",data.userRealName);
+                $("#email").attr("value",data.userEmail);
+                $("#user_no").attr("value",data.userNo);
+                $("#school").attr("value",data.userSchool);
+                $("#dept").attr("value",data.userDept);
+                $("#major").attr("value",data.userMajor);
+                $("#class").attr("value",data.userClass);
+            }
+        });
+    }
+</script>
+
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
         <div class="container">
@@ -52,7 +77,7 @@
         </div>
     </nav>
 </header>
-
+<input type="button" value="点击获取结果" id="btn" onclick="sub()">
 <div class="container">
     <div class="row clearfix" style="margin-top: 30px">
         <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
@@ -66,29 +91,25 @@
                 <div class="form-group" style="margin-top: 30px">
                     <label for="username" class="col-sm-2 control-label">账号</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" name="username"
-                               placeholder="Username 长度6~20字符" required disabled minlength="6" maxlength="20"/>
+                        <input type="text" class="form-control" id="username" name="username" required disabled minlength="6" maxlength="20"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="col-sm-2 control-label">邮箱</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" autofocus
-                               placeholder="Email" required/>
+                        <input type="email" class="form-control" id="email" name="email" autofocus disabled required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="real_name" class="col-sm-2 control-label">姓名</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="real_name" name="real_name"
-                               placeholder="Real Name" required/>
+                        <input type="text" class="form-control" id="real_name" name="real_name" required/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="user_no" class="col-sm-2 control-label">学号</label>
                     <div class="col-sm-10">
-                        <input type="tel" class="form-control" id="user_no" name="user_no"
-                               placeholder="Student ID" required
+                        <input type="tel" class="form-control" id="user_no" name="user_no" required
                                onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
                                onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"
                         />
@@ -103,29 +124,25 @@
                     <div class="form-group">
                         <label for="school" class="col-sm-2 control-label">学校</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="school" name="school"
-                                   placeholder="School"/>
+                            <input type="text" class="form-control" id="school" name="school"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="dept" class="col-sm-2 control-label">学院</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="dept" name="dept"
-                                   placeholder="Department"/>
+                            <input type="text" class="form-control" id="dept" name="dept"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="major" class="col-sm-2 control-label">专业</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="major" name="major"
-                                   placeholder="Major"/>
+                            <input type="text" class="form-control" id="major" name="major"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="class" class="col-sm-2 control-label">班级</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="class" name="class"
-                                   placeholder="Class"/>
+                            <input type="text" class="form-control" id="class" name="class"/>
                         </div>
                     </div>
                 <%--</div>--%>
