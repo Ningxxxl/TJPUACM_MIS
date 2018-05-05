@@ -19,7 +19,7 @@ import java.io.IOException;
 public class UpdateProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("username");
-        String userEmail = request.getParameter("email");
+        String userEmail = request.getParameter("uemail");
         String userNo = request.getParameter("user_no");
         String userSchool = request.getParameter("school");
         String userDept = request.getParameter("dept");

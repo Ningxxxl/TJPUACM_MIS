@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
-
 </head>
 <body>
 <%
@@ -43,7 +43,7 @@
             success: function (data) {
                 $("#username").attr("value", data.userName);
                 $("#real_name").attr("value", data.userRealName);
-                $("#email").attr("value", data.userEmail);
+                $("#uemail").attr("value", data.userEmail);
                 $("#user_no").attr("value", data.userNo);
                 $("#school").attr("value", data.userSchool);
                 $("#dept").attr("value", data.userDept);
@@ -88,79 +88,151 @@
         </div>
     </nav>
 </header>
-<div class="container">
-    <div class="row clearfix" style="margin-top: 30px">
-        <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
-            <div class="page-header">
-                <h1>
-                    修改个人信息
-                    <small>Set your profile</small>
-                </h1>
+
+<main class="container mt-4">
+    <div class="row">
+        <div class="col-md-2 md-2">
+            <img src="..." class="img-fluid" alt="Responsive image">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-overview-tab" data-toggle="pill" href="#v-pills-overview" role="tab" aria-controls="v-pills-overview"
+                   aria-selected="true">overview</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                   aria-selected="false">Profile</a>
+                <a class="nav-link" id="v-pills-securty-tab" data-toggle="pill" href="#v-pills-securty" role="tab" aria-controls="v-pills-securty"
+                   aria-selected="false">securty</a>
             </div>
-            <form class="form-horizontal" role="form" action="UpdateProfileServlet" method="post">
-                <div class="form-group" style="margin-top: 30px">
-                    <label for="username" class="col-sm-2 control-label">账号</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="username" name="username" readonly
-                               minlength="6" maxlength="20"/>
+        </div>
+        <div class="col-md-10">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
+                    <div class="card">
+                        <div class="card-body table-responsive" style="overflow-x: scroll;">
+                            <h5 class="card-title">签到概览</h5>
+                            <table class="table" >
+                                <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px">
+                                </svg>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">邮箱</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" autofocus readonly/>
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Avatar setting</h5>
+                            <form>
+                                <div class="row ">
+                                    <div class="form-group col-md-6">
+                                        占位符
+                                    </div>
+                                </div>
+                            </form>
+                            <h5 class="card-title">个人信息</h5>
+                            <form role="form" action="UpdateProfileServlet" method="post">
+                                <div class="row ">
+                                    <div class="form-group col-md-6">
+                                        <label for="username" class="col-form-label">账号</label>
+                                        <input type="text" class="form-control" id="username" name="username" required readonly minlength="6" maxlength="20" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="uemail" class="col-form-label">邮箱</label>
+                                        <input type="email" class="form-control" id="uemail" name="uemail" readonly required/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="real_name" class="col-form-label">姓名</label>
+                                        <input type="text" class="form-control" id="real_name" name="real_name" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="user_no" class="col-form-label">学号</label>
+                                        <input type="tel" class="form-control" id="user_no" name="user_no" required onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                                               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="school" class="col-form-label">学校</label>
+                                        <input type="text" class="form-control" id="school" name="school" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="dept" class="col-form-label">学院</label>
+                                        <input type="text" class="form-control" id="dept" name="dept" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="major" class="col-form-label">专业</label>
+                                        <input type="text" class="form-control" id="major" name="major" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="class" class="col-form-label">班级</label>
+                                        <input type="text" class="form-control" id="class" name="class" />
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block" style="margin-top: 20px"
+                                        onclick="return validate()">
+                                    保存修改
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="real_name" class="col-sm-2 control-label">姓名</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="real_name" name="real_name" required/>
+                <div class="tab-pane fade" id="v-pills-securty" role="tabpanel" aria-labelledby="v-pills-securty-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">安全设置</h5>
+                            <div class="row">
+                                <form class="col-lg-6">
+                                    <h6 class="card-title">更改密码</h6>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="password2">Current Password</label>
+                                            <input type="password" class="form-control" id="password2" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="password3">New Password</label>
+                                            <input type="password" class="form-control" id="password3" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="password4">Confrim New Password</label>
+                                            <input type="password" class="form-control" id="password4" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-primary">提交</a>
+                                </form>
+                                <form class="col-lg-6">
+                                    <h6 class="card-title">更改邮箱</h6>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="password1">Current Password</label>
+                                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="email1">Current Email</label>
+                                            <input type="email" class="form-control" id="email1" name="email1" autofocus disabled required/>
+                                        </div>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="form-group col-md-10">
+                                            <label for="password2">New Email</label>
+                                            <input type="email" class="form-control" id="user_email2" placeholder="Enter email">
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn btn-primary">提交</a>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="user_no" class="col-sm-2 control-label">学号</label>
-                    <div class="col-sm-10">
-                        <input type="tel" class="form-control" id="user_no" name="user_no" required
-                               onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
-                               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"
-                        />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="school" class="col-sm-2 control-label">学校</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="school" name="school"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="dept" class="col-sm-2 control-label">学院</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="dept" name="dept"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="major" class="col-sm-2 control-label">专业</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="major" name="major"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="class" class="col-sm-2 control-label">班级</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="class" name="class"/>
-                    </div>
-                </div>
-
-                <span id="warning" style="color: red">   </span>
-                <button type="submit" class="btn btn-success btn-block" style="margin-top: 20px"
-                        onclick="return validate()">
-                    保存修改
-                </button>
-            </form>
-
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <%@include file="footer.jsp" %>
 <script>
@@ -236,7 +308,9 @@
     } else if (res == "failed") {
         toastr.error("抱歉，我们遇到了错误。请联系管理员。");
     }
+
 </script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/profile_calendar.js"></script>
 
 <%
     if (userNow != null) {
