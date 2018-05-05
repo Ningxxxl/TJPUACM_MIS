@@ -230,7 +230,7 @@ public class UserDaoServer implements IUserDaoService {
             connection.close();
         }
 
-        if (isUpdateSuccess == true)
+        if (isUpdateSuccess)
             return user;
         else return null;
     }
@@ -386,5 +386,50 @@ public class UserDaoServer implements IUserDaoService {
         }
 
         return userInfo;
+    }
+
+    /**
+     * @param user
+     * @Author: ningxy
+     * @Description: 更新profile
+     * @params: [user]
+     * @return: boolean
+     * @Date: 2018/5/5 下午12:35
+     */
+    @Override
+    public boolean UpdateUserProfile(User user) throws Exception {
+        String sql = "UPDATE user_info, users\n" +
+                "SET user_name = ?,\n" +
+                "user_email = ?,\n" +
+                "user_no = ?,\n" +
+                "user_school = ?,\n" +
+                "user_dept = ?,\n" +
+                "user_major = ?,\n" +
+                "user_class = ?\n" +
+                "WHERE users.user_id = user_info.user_id\n" +
+                "AND users.username = ?;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, user.getUserRealName());
+        preparedStatement.setString(2, user.getUserEmail());
+        preparedStatement.setString(3, user.getUserNo());
+        preparedStatement.setString(4, user.getUserSchool());
+        preparedStatement.setString(5, user.getUserDept());
+        preparedStatement.setString(6, user.getUserMajor());
+        preparedStatement.setString(7, user.getUserClass());
+        preparedStatement.setString(8, user.getUserName());
+
+        int res =  preparedStatement.executeUpdate();
+
+        if (res != 0) {
+            System.out.println("UserDaoServer | [" + user.getUserName() + "] profile更新成功");
+            return true;
+        } else {
+            System.out.println("UserDaoServer | [" + user.getUserName() + "] profile更新失败");
+            return false;
+        }
     }
 }

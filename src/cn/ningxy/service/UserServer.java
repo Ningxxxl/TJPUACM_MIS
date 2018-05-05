@@ -119,4 +119,17 @@ public class UserServer implements IUserService {
     public User getUserInfo(String userName) throws Exception {
         return new UserDaoServer().getUserInfo(userName);
     }
+
+    /**
+     * @param user
+     * @Author: ningxy
+     * @Description: 更新用户profile
+     * @params: [user]
+     * @return: boolean
+     * @Date: 2018/5/5 下午1:10
+     */
+    @Override
+    public boolean UpdateUserProfile(User user) throws Exception {
+        return new UserDaoServer().UpdateUserProfile(user);
+    }
 }

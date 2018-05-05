@@ -1,6 +1,8 @@
 package cn.ningxy.filter;
 
 
+import cn.ningxy.service.UserServer;
+
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -44,22 +46,11 @@ public class AuthFilter implements Filter {
         System.out.println("AuthFilter | servletPath : " + servletPath);
 
 //        从cookie中获取当前登录用户信息
-        String userNow = null;
-        Cookie cookie = null;
-        Cookie[] cookies = null;
-        cookies = httpServletRequest.getCookies();
-        if(cookies != null) {
-            for(int i = 0 ; i < cookies.length; i++) {
-                if(cookies[i].getName().equals("username")) {
-//                    System.out.println("cookies = " + cookies[i].getValue());
-                    userNow = cookies[i].getValue();
-                }
-            }
-        }
+        String userNow = new UserServer().getUserNow(httpServletRequest);
 
         System.out.println("AuthFilter | userNow : " + userNow);
 
-        if (servletPath != null && servletPath.equals("/cart.jsp")) {
+        if (servletPath != null && servletPath.equals("/profile.jsp")) {
             if (loginRes != null && loginRes.equals("succeed") && userNow != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else if (loginRes != null && loginRes.equals("failed")) {

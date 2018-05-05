@@ -83,4 +83,13 @@ public interface IUserDaoService {
     * @Date: 2018/5/3 下午9:18
     */
     public User getUserInfo(String userName) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 更新profile
+    * @params: [user]
+    * @return: boolean
+    * @Date: 2018/5/5 下午12:35
+    */
+    public boolean UpdateUserProfile(User user) throws Exception;
 }

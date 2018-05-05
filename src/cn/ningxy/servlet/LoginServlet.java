@@ -13,6 +13,8 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+
         String userName = request.getParameter("username");
         String userPassword = request.getParameter("passwd");
         String isRemember = request.getParameter("isRemember");
@@ -28,6 +30,8 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             request.setAttribute("loginRes", "succeed");
 
+            session.setAttribute("userName", userName);
+            session.setAttribute("loginRes", "succeed");
             Cookie cookie = new Cookie("username", userName);
             System.out.println("isRemember = " + isRemember);
             if (isRemember != null && isRemember.equals("on")) {
@@ -37,6 +41,7 @@ public class LoginServlet extends HttpServlet {
             }
             response.addCookie(cookie);
         } else {
+            session.setAttribute("loginRes", "failed");
             request.setAttribute("loginRes", "failed");
         }
         request.getRequestDispatcher("login.jsp").forward(request, response);

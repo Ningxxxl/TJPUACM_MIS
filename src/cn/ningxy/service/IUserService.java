@@ -57,4 +57,13 @@ public interface IUserService {
     */
     public User getUserInfo(String userName) throws Exception;
 
+    /**
+    * @Author: ningxy
+    * @Description: 更新用户profile
+    * @params: [user]
+    * @return: boolean
+    * @Date: 2018/5/5 下午1:10
+    */
+    public boolean UpdateUserProfile(User user) throws Exception;
+
 }
