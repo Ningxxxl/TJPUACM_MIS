@@ -224,14 +224,14 @@
                                         <div class="form-group col-md-10">
                                             <label for="currentPassword">Current Password</label>
                                             <input type="password" class="form-control" id="currentPassword" name="currentPassword"
-                                                   placeholder="Password长度为6~20字符" minlength="6" maxlength="20" required>
+                                                   placeholder="Password" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="newPassword">New Password</label>
                                             <input type="password" class="form-control" id="newPassword" name="newPassword"
-                                                   placeholder="Password" minlength="6" maxlength="20" required>
+                                                   placeholder="Password长度为6~20字符" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <div class="row ">
