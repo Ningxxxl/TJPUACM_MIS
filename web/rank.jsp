@@ -49,6 +49,7 @@
                         <%--<a class="dropdown-item" href="#">账户设置</a>--%>
                         <%--<a class="dropdown-item" href="#">后台管理</a>--%>
                         <%--<div class="dropdown-divider"></div>--%>
+                        <a class="dropdown-item" href="profile.jsp">设置</a>
                         <a class="dropdown-item" href="#" onclick="sendRequestByPost2()">登出</a>
                     </div>
                 </div>
@@ -80,7 +81,7 @@
 
                             int preFrequency = 0;
 
-                            for(CheckinData checkinData: checkinDataArrayList) {
+                            for (CheckinData checkinData : checkinDataArrayList) {
                                 rowId += 1;
 
                                 String userName = checkinData.getUserName();        //用户名
@@ -93,9 +94,9 @@
 
                                 out.print("" +
                                         "<tr>\n" +
-                                        "    <th scope=\"row\">"+ rank +"</th>\n" +
+                                        "    <th scope=\"row\">" + rank + "</th>\n" +
                                         "    <td>\n" +
-                                        "        <a href=\"#\">"+ userName +"</a>\n" +
+                                        "        <a href=\"#\">" + userName + "</a>\n" +
                                         "    </td>\n" +
                                         "    <td>" + frequency + "</td>\n" +
                                         "</tr>");
@@ -108,7 +109,7 @@
         </div>
     </div>
 </main>
-<%@include file="footer.jsp"%>
+<%@include file="footer.jsp" %>
 
 <%
     //    获取当前用户

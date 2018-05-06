@@ -45,6 +45,7 @@
                         <%--<a class="dropdown-item" href="#">账户设置</a>--%>
                         <%--<a class="dropdown-item" href="#">后台管理</a>--%>
                         <%--<div class="dropdown-divider"></div>--%>
+                        <a class="dropdown-item" href="profile.jsp">设置</a>
                         <a class="dropdown-item" href="#" onclick="sendRequestByPost2()">登出</a>
                     </div>
                 </div>
@@ -59,7 +60,7 @@
     <p>@ctuu</p>
 </main>
 
-<%@include file="footer.jsp"%>
+<%@include file="footer.jsp" %>
 
 <%
     //    获取当前用户

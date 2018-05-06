@@ -106,17 +106,6 @@
         </div>
         <div class="col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-overview" role="tabpanel" aria-labelledby="v-pills-overview-tab">
-                    <div class="card">
-                        <div class="card-body table-responsive" style="overflow-x: scroll;">
-                            <h5 class="card-title">签到概览</h5>
-                            <table class="table" >
-                                <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px">
-                                </svg>
-                            </table>
-                        </div>
-                    </div>
-                </div>
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="card">
                         <div class="card-body">
@@ -354,7 +343,6 @@
     }
 
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/profile_calendar.js"></script>
 
 <%
     if (userNow != null) {
