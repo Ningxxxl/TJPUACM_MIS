@@ -19,9 +19,9 @@
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
-    <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.min.js"></script>
+    <%--<link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">--%>
+    <%--<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>--%>
+    <%--<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.min.js"></script>--%>
 
 </head>
 <body>
@@ -141,7 +141,7 @@
     <div class="row">
         <div class="col-md-2 md-2">
             <img src="https://avatars3.githubusercontent.com/u/27630686?s=400&v=4" class="img-fluid md-2"
-                 alt="Responsive image" style="clip-path: circle(40% at center)">
+                 alt="Responsive image" style="-webkit-clip-path: circle(40% at center); clip-path: circle(40% at center);">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
                    aria-selected="true">Profile</a>
