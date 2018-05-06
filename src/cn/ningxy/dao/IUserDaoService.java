@@ -92,4 +92,22 @@ public interface IUserDaoService {
     * @Date: 2018/5/5 下午12:35
     */
     public boolean UpdateUserProfile(User user) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 更新用户密码
+    * @params: [userName, oldPWD, newPWD]
+    * @return: boolean
+    * @Date: 2018/5/6 下午12:25
+    */
+    public boolean UpdateUserPassword(String userName, String oldPWD, String newPWD) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 验证用户当前使用密码是否正确
+    * @params: [userName, oidPWD]
+    * @return: boolean
+    * @Date: 2018/5/6 下午12:28
+    */
+    public boolean isPasswrdIllegal(String userName, String oidPWD) throws Exception;
 }

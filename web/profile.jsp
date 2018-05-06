@@ -42,6 +42,7 @@
             },
             success: function (data) {
                 $("#username").attr("value", data.userName);
+                $("#updatePwdUserName").attr("value", data.userName);
                 $("#real_name").attr("value", data.userRealName);
                 $("#uemail").attr("value", data.userEmail);
                 $("#user_no").attr("value", data.userNo);
@@ -181,27 +182,31 @@
                         <div class="card-body">
                             <h5 class="card-title">安全设置</h5>
                             <div class="row">
-                                <form class="col-lg-6">
+                                <form class="col-lg-6" action="UpdatePasswordServlet" method="post">
+                                    <input type="hidden" id="updatePwdUserName" name="updatePwdUserName">
                                     <h6 class="card-title">更改密码</h6>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="password2">Current Password</label>
-                                            <input type="password" class="form-control" id="password2" placeholder="Password">
+                                            <label for="currentPassword">Current Password</label>
+                                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="password3">New Password</label>
-                                            <input type="password" class="form-control" id="password3" placeholder="Password">
+                                            <label for="newPassword">New Password</label>
+                                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="password4">Confrim New Password</label>
-                                            <input type="password" class="form-control" id="password4" placeholder="Password">
+                                            <label for="newPassword1">Confrim New Password</label>
+                                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" placeholder="Password">
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-primary">提交</a>
+                                    <button type="submit" class="btn btn-success"
+                                            onclick="return validate1()">
+                                        保存修改
+                                    </button>
                                 </form>
                                 <form class="col-lg-6">
                                     <h6 class="card-title">更改邮箱</h6>
@@ -252,6 +257,23 @@
             return false;
         } else if (realname.length == 0) {
             alert("姓名不能为空");
+            return false;
+        }
+        return true;
+    }
+
+    function validate1() {
+        var currentPwd = document.getElementById("currentPassword").value;
+        var pwd1 = document.getElementById("newPassword").value;
+        var pwd2 = document.getElementById("newPassword1").value;
+        if (currentPwd.length == 0) {
+            alert("当前密码不能为空");
+            return false;
+        } else if (pwd1.length == 0 || pwd2.length == 0) {
+            alert("新密码不能为空");
+            return false;
+        } else if (pwd1 != pwd2) {
+            alert("新密码不一致");
             return false;
         }
         return true;

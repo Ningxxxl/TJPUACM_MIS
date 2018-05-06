@@ -108,7 +108,6 @@ public class UserServer implements IUserService {
     }
 
     /**
-     * @param userName
      * @Author: ningxy
      * @Description: 获取用户详细信息
      * @params: [userName]
@@ -121,7 +120,6 @@ public class UserServer implements IUserService {
     }
 
     /**
-     * @param user
      * @Author: ningxy
      * @Description: 更新用户profile
      * @params: [user]
@@ -131,5 +129,17 @@ public class UserServer implements IUserService {
     @Override
     public boolean UpdateUserProfile(User user) throws Exception {
         return new UserDaoServer().UpdateUserProfile(user);
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 更新用户密码
+     * @params: [userName, oldPWD, newPWD]
+     * @return: boolean
+     * @Date: 2018/5/6 下午12:24
+     */
+    @Override
+    public boolean UpdateUserPassword(String userName, String oldPWD, String newPWD) throws Exception {
+        return new UserDaoServer().UpdateUserPassword(userName, oldPWD, newPWD);
     }
 }

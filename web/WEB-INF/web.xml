@@ -71,6 +71,14 @@
         <servlet-name>updateprofile</servlet-name>
         <url-pattern>/UpdateProfileServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>updatepassword</servlet-name>
+        <servlet-class>cn.ningxy.servlet.UpdatePasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updatepassword</servlet-name>
+        <url-pattern>/UpdatePasswordServlet</url-pattern>
+    </servlet-mapping>
 
     <!--welcome-file-list-->
     <welcome-file-list>

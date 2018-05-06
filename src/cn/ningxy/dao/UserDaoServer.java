@@ -324,7 +324,6 @@ public class UserDaoServer implements IUserDaoService {
     }
 
     /**
-     * @param userName
      * @Author: ningxy
      * @Description:
      * @params: [userName]
@@ -389,7 +388,6 @@ public class UserDaoServer implements IUserDaoService {
     }
 
     /**
-     * @param user
      * @Author: ningxy
      * @Description: 更新profile
      * @params: [user]
@@ -429,6 +427,71 @@ public class UserDaoServer implements IUserDaoService {
             return true;
         } else {
             System.out.println("UserDaoServer | [" + user.getUserName() + "] profile更新失败");
+            return false;
+        }
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 更新用户密码
+     * @params: [userName, oldPWD, newPWD]
+     * @return: boolean
+     * @Date: 2018/5/6 下午12:25
+     */
+    @Override
+    public boolean UpdateUserPassword(String userName, String oldPWD, String newPWD) throws Exception {
+
+        boolean isPassWordIllegal = isPasswrdIllegal(userName, oldPWD);
+
+        if(isPassWordIllegal == false) return false;
+
+        String sql = "UPDATE users SET users.password = ? WHERE users.username = ?;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, newPWD);
+        preparedStatement.setString(2, userName);
+
+        int row = preparedStatement.executeUpdate();
+
+        if (row != 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 验证用户当前使用密码是否正确
+     * @params: [userName, oidPWD]
+     * @return: boolean
+     * @Date: 2018/5/6 下午12:28
+     */
+    @Override
+    public boolean isPasswrdIllegal(String userName, String oldPWD) throws Exception {
+        String sql = "SELECT users.password FROM users WHERE users.username = ?;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, userName);
+
+        preparedStatement.executeQuery();
+
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        resultSet.next();
+
+        String correctPWD = resultSet.getString(1);
+
+        if (correctPWD.equals(oldPWD)) {
+            return true;
+        } else {
             return false;
         }
     }
