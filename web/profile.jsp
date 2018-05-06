@@ -391,7 +391,7 @@
     if (userNow != null) {
 
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"" + userNow + "\";</script>");
-        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"profile.jsp\\\">设置</a>\";</script>");
+//        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"profile.jsp\\\">设置</a>\";</script>");
 //        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" onclick=\\\"sendRequestByPost2()\\\">登出</a>\";</script>");
     } else {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"未登录\";</script>");
