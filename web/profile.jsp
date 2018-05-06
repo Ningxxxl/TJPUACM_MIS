@@ -19,6 +19,9 @@
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.min.js"></script>
 
 </head>
 <body>
@@ -93,7 +96,10 @@
         } else if (updatePasswordRes == "failed") {
             toastr.warning("密码更新失败，请检查原密码是否正确");
         }
+
     });
+
+
 </script>
 
 <header>
@@ -123,7 +129,7 @@
                         <%--<a class="dropdown-item" href="#">后台管理</a>--%>
                         <a class="dropdown-item" href="profile.jsp">设置</a>
                         <%--<div class="dropdown-divider"></div>--%>
-                        <%--<a class="dropdown-item" href="#" onclick="sendRequestByPost2()">登出</a>--%>
+                        <a class="dropdown-item" href="#" onclick="sendRequestByPost2()">登出</a>
                     </div>
                 </div>
             </div>
@@ -134,7 +140,7 @@
 <main class="container mt-4">
     <div class="row">
         <div class="col-md-2 md-2">
-            <img src="https://raw.githubusercontent.com/ctuu/PreTimer/master/Screenshot/PreTimer.png" class="img-fluid md-2"
+            <img src="https://avatars3.githubusercontent.com/u/27630686?s=400&v=4" class="img-fluid md-2"
                  alt="Responsive image" style="clip-path: circle(40% at center)">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
@@ -217,19 +223,22 @@
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="currentPassword">Current Password</label>
-                                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" placeholder="Password">
+                                            <input type="password" class="form-control" id="currentPassword" name="currentPassword"
+                                                   placeholder="Password长度为6~20字符" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="newPassword">New Password</label>
-                                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Password">
+                                            <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                                   placeholder="Password" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="newPassword1">Confrim New Password</label>
-                                            <input type="password" class="form-control" id="newPassword1" name="newPassword1" placeholder="Password">
+                                            <input type="password" class="form-control" id="newPassword1" name="newPassword1"
+                                                   placeholder="Password长度为6~20字符" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"
@@ -243,19 +252,22 @@
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="currentPassword1">Current Password</label>
-                                            <input type="password" class="form-control" id="currentPassword1" name="currentPassword1" placeholder="Password">
+                                            <input type="password" class="form-control" id="currentPassword1" name="currentPassword1"
+                                                   placeholder="Password" minlength="6" maxlength="20" required>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="currentEmail">Current Email</label>
-                                            <input type="email" class="form-control" id="currentEmail" name="currentEmail" placeholder="Current Email" required/>
+                                            <input type="email" class="form-control" id="currentEmail" name="currentEmail"
+                                                   placeholder="Current Email" required/>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
                                             <label for="newEmail">New Email</label>
-                                            <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="Enter email">
+                                            <input type="email" class="form-control" id="newEmail" name="newEmail"
+                                                   placeholder="Enter email" required>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"
