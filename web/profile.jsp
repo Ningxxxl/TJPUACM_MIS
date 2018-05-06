@@ -43,6 +43,7 @@
             success: function (data) {
                 $("#username").attr("value", data.userName);
                 $("#updatePwdUserName").attr("value", data.userName);
+                $("#updateEmailUserName").attr("value", data.userName);
                 $("#real_name").attr("value", data.userRealName);
                 $("#uemail").attr("value", data.userEmail);
                 $("#user_no").attr("value", data.userNo);
@@ -208,27 +209,31 @@
                                         保存修改
                                     </button>
                                 </form>
-                                <form class="col-lg-6">
+                                <form class="col-lg-6" action="UpdateEmailServlet" method="post">
+                                    <input type="hidden" id="updateEmailUserName" name="updateEmailUserName">
                                     <h6 class="card-title">更改邮箱</h6>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="password1">Current Password</label>
-                                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                                            <label for="currentPassword1">Current Password</label>
+                                            <input type="password" class="form-control" id="currentPassword1" name="currentPassword1" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="email1">Current Email</label>
-                                            <input type="email" class="form-control" id="email1" name="email1" autofocus disabled required/>
+                                            <label for="currentEmail">Current Email</label>
+                                            <input type="email" class="form-control" id="currentEmail" name="currentEmail" placeholder="Current Email" required/>
                                         </div>
                                     </div>
                                     <div class="row ">
                                         <div class="form-group col-md-10">
-                                            <label for="password2">New Email</label>
-                                            <input type="email" class="form-control" id="user_email2" placeholder="Enter email">
+                                            <label for="newEmail">New Email</label>
+                                            <input type="email" class="form-control" id="newEmail" name="newEmail" placeholder="Enter email">
                                         </div>
                                     </div>
-                                    <a href="#" class="btn btn-primary">提交</a>
+                                    <button type="submit" class="btn btn-success"
+                                            onclick="return validate2()">
+                                        保存修改
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -274,6 +279,23 @@
             return false;
         } else if (pwd1 != pwd2) {
             alert("新密码不一致");
+            return false;
+        }
+        return true;
+    }
+
+    function validate2() {
+        var currentPwd = document.getElementById("currentPassword1").value;
+        var oldEmail = document.getElementById("currentEmail").value;
+        var newEmail = document.getElementById("newEmail").value;
+        if (currentPwd.length == 0) {
+            alert("当前密码不能为空");
+            return false;
+        } else if (oldEmail.length == 0 || pwd2.length == 0) {
+            alert("当前邮箱不能为空");
+            return false;
+        } else if (pwd1 != pwd2) {
+            alert("新邮箱不能为空");
             return false;
         }
         return true;

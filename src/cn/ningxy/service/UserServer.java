@@ -142,4 +142,20 @@ public class UserServer implements IUserService {
     public boolean UpdateUserPassword(String userName, String oldPWD, String newPWD) throws Exception {
         return new UserDaoServer().UpdateUserPassword(userName, oldPWD, newPWD);
     }
+
+    /**
+     * @param userName
+     * @param oldPWD
+     * @param oldEmail
+     * @param newEmail
+     * @Author: ningxy
+     * @Description:
+     * @params: [userName, oldPWD, oldEmail, newEmail]
+     * @return: boolean
+     * @Date: 2018/5/6 下午2:48
+     */
+    @Override
+    public boolean UpdateUSerEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception {
+        return new UserDaoServer().UpdateUserEmail(userName, oldPWD, oldEmail, newEmail);
+    }
 }

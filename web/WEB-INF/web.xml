@@ -79,6 +79,14 @@
         <servlet-name>updatepassword</servlet-name>
         <url-pattern>/UpdatePasswordServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>updateemail</servlet-name>
+        <servlet-class>cn.ningxy.servlet.UpdateEmailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updateemail</servlet-name>
+        <url-pattern>/UpdateEmailServlet</url-pattern>
+    </servlet-mapping>
 
     <!--welcome-file-list-->
     <welcome-file-list>

@@ -74,4 +74,13 @@ public interface IUserService {
     * @Date: 2018/5/6 下午12:24
     */
     public boolean UpdateUserPassword(String userName, String oldPWD, String newPWD) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description:
+    * @params: [userName, oldPWD, oldEmail, newEmail]
+    * @return: boolean
+    * @Date: 2018/5/6 下午2:48
+    */
+    public boolean UpdateUSerEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception;
 }

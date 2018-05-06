@@ -24,9 +24,6 @@ public class UpdatePasswordServlet extends HttpServlet {
         String newPWD = request.getParameter("newPassword");
         String newPWD1 = request.getParameter("newPassword1");
 
-        System.out.println("UpdatePasswordServlet | userName = " + userName);
-        System.out.println("UpdatePasswordServlet | newPWD = " + newPWD);
-
         if(userName == null) {
             request.setAttribute("updatePasswordRes", "userName_null");
             request.getRequestDispatcher("profile.jsp").forward(request, response);
@@ -35,6 +32,12 @@ public class UpdatePasswordServlet extends HttpServlet {
 
         if(newPWD.equals(newPWD1) == false) {
             request.setAttribute("updatePasswordRes", "newPasswordIllegal");
+            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            return;
+        }
+
+        if(newPWD == null) {
+            request.setAttribute("updatePasswordRes", "newPWD_null");
             request.getRequestDispatcher("profile.jsp").forward(request, response);
             return;
         }

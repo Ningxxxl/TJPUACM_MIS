@@ -1,6 +1,7 @@
 package cn.ningxy.dao;
 
 import cn.ningxy.bean.User;
+import com.sun.tools.corba.se.idl.StringGen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,5 +110,23 @@ public interface IUserDaoService {
     * @return: boolean
     * @Date: 2018/5/6 下午12:28
     */
-    public boolean isPasswrdIllegal(String userName, String oidPWD) throws Exception;
+    public boolean isPasswrdIllegal(String userName, String oldPWD) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 验证用户当前使用邮箱是否正确
+    * @params: [userName, oldEmail]
+    * @return: boolean
+    * @Date: 2018/5/6 下午2:25
+    */
+    public boolean isEmailLeggal(String userName, String oldEmail) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 更新用户邮箱
+    * @params: [userName, oldPWD, oldEmail, newEmail]
+    * @return: boolean
+    * @Date: 2018/5/6 下午2:35
+    */
+    public boolean UpdateUserEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception;
 }

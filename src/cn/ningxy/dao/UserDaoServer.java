@@ -495,4 +495,73 @@ public class UserDaoServer implements IUserDaoService {
             return false;
         }
     }
+
+    /**
+     * @Author: ningxy
+     * @Description: 验证用户当前使用邮箱是否正确
+     * @params: [userName, oldEmail]
+     * @return: boolean
+     * @Date: 2018/5/6 下午2:25
+     */
+    @Override
+    public boolean isEmailLeggal(String userName, String oldEmail) throws Exception {
+        String sql = "SELECT user_info.user_email\n" +
+                "FROM users INNER JOIN user_info\n" +
+                "ON users.user_id = user_info.user_id\n" +
+                "WHERE users.username = ?;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, userName);
+
+        preparedStatement.executeQuery();
+
+        ResultSet resultSet = preparedStatement.getResultSet();
+
+        resultSet.next();
+
+        String correctEmail = resultSet.getString(1);
+
+        if (correctEmail.equals(oldEmail)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 更新用户邮箱
+     * @params: [userName, oldPWD, oldEmail, newEmail]
+     * @return: boolean
+     * @Date: 2018/5/6 下午2:35
+     */
+    @Override
+    public boolean UpdateUserEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception {
+        boolean isEmailLeggal = isEmailLeggal(userName, oldEmail);
+        boolean isPasswordLeggal = isPasswrdIllegal(userName, oldPWD);
+        if(isEmailLeggal == false || isPasswordLeggal == false) return false;
+
+        String sql = "UPDATE users, user_info\n" +
+                "SET user_info.user_email = ?\n" +
+                "WHERE users.user_id = user_info.user_id\n" +
+                "AND users.username = ?";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, newEmail);
+        preparedStatement.setString(2, userName);
+
+        int row = preparedStatement.executeUpdate();
+
+        if (row != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
