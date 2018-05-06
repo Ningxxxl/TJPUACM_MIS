@@ -8,26 +8,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>个人设置</title>
 
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <%--<script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>--%>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body>
 <%
     //    获取当前用户
     String userNow = new UserServer().getUserNow(request);
     System.out.println("profile | " + userNow);
-//    out.print("<script>userNow = '" + userNow + "';</script>");
 %>
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
+    $(document).ready(function showData() {
 
         $.ajax({
             dataType: "json",    //数据类型为json格式
@@ -53,6 +56,43 @@
                 $("#class").attr("value", data.userClass);
             }
         });
+
+        // $("#UpdatePasswordButton").on("click",function(){
+        //     $("#UpdatePasswordForm").ajaxSubmit({
+        //         url: 'UpdatePasswordServlet',
+        //         type: 'post',
+        //         dataType: 'json',
+        //         beforeSubmit: function () {},
+        //         success: function (data) {
+        //             alert(data.updatePasswordRes);
+        //             if(data.updatePasswordRes == "succeed") {
+        //                 toastr.success("密码修改成功");
+        //             } else {
+        //                 toastr.warning("密码更新失败");
+        //             }
+        //         },
+        //         clearForm: false,//禁止清除表单
+        //         resetForm: false //禁止重置表单
+        //     })
+        // })
+
+        var updatePasswordRes = "<%=request.getAttribute("updatePasswordRes")%>";
+        var updateEmailRes = "<%=request.getAttribute("updateEmailRes")%>";
+        var updateProfileRes = "<%=request.getAttribute("updateProfileRes")%>";
+
+        if (updateProfileRes == "succeed") {
+            toastr.success("资料修改成功");
+        }
+        if (updateEmailRes == "succeed") {
+            toastr.success("邮箱修改成功");
+        } else if (updateEmailRes == "failed") {
+            toastr.warning("邮箱更新失败，请检查原密码/邮箱是否正确");
+        }
+        if (updatePasswordRes == "succeed") {
+            toastr.success("密码修改成功");
+        } else if (updatePasswordRes == "failed") {
+            toastr.warning("密码更新失败，请检查原密码是否正确");
+        }
     });
 </script>
 
@@ -94,19 +134,18 @@
 <main class="container mt-4">
     <div class="row">
         <div class="col-md-2 md-2">
-            <img src="..." class="img-fluid" alt="Responsive image">
+            <img src="https://raw.githubusercontent.com/ctuu/PreTimer/master/Screenshot/PreTimer.png" class="img-fluid md-2"
+                 alt="Responsive image" style="clip-path: circle(40% at center)">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-overview-tab" data-toggle="pill" href="#v-pills-overview" role="tab" aria-controls="v-pills-overview"
-                   aria-selected="true">overview</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-                   aria-selected="false">Profile</a>
+                <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                   aria-selected="true">Profile</a>
                 <a class="nav-link" id="v-pills-securty-tab" data-toggle="pill" href="#v-pills-securty" role="tab" aria-controls="v-pills-securty"
                    aria-selected="false">securty</a>
             </div>
         </div>
         <div class="col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Avatar setting</h5>
@@ -118,7 +157,7 @@
                                 </div>
                             </form>
                             <h5 class="card-title">个人信息</h5>
-                            <form role="form" action="UpdateProfileServlet" method="post">
+                            <form role="form" action="UpdateProfileServlet" method="post" id="UpdateProfileForm">
                                 <div class="row ">
                                     <div class="form-group col-md-6">
                                         <label for="username" class="col-form-label">账号</label>
@@ -160,7 +199,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-success btn-block" style="margin-top: 20px"
-                                        onclick="return validate()">
+                                        onclick="return validate()" id="UpdateProfileButton">
                                     保存修改
                                 </button>
                             </form>
@@ -172,7 +211,7 @@
                         <div class="card-body">
                             <h5 class="card-title">安全设置</h5>
                             <div class="row">
-                                <form class="col-lg-6" action="UpdatePasswordServlet" method="post">
+                                <form class="col-lg-6" action="UpdatePasswordServlet" method="post" id="UpdatePasswordForm">
                                     <input type="hidden" id="updatePwdUserName" name="updatePwdUserName">
                                     <h6 class="card-title">更改密码</h6>
                                     <div class="row ">
@@ -194,7 +233,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-success"
-                                            onclick="return validate1()">
+                                            onclick="return validate1()" id="UpdatePasswordButton">
                                         保存修改
                                     </button>
                                 </form>
@@ -332,14 +371,6 @@
         xmlReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         //发送请求
         xmlReq.send(null);
-    }
-
-    var res = "<%=request.getAttribute("updateProfileRes")%>";
-
-    if (res == "succeed") {
-        toastr.success("资料保存成功！");
-    } else if (res == "failed") {
-        toastr.error("抱歉，我们遇到了错误。请联系管理员。");
     }
 
 </script>
