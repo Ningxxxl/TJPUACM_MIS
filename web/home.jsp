@@ -300,13 +300,14 @@
             System.out.println(jsonArray.toString());
             out.println("</script>");
         } catch (Exception e) {
-            out.print("<script>var dt = [];</script>");
             e.printStackTrace();
         }
 
     } else {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"未登录\";</script>");
         out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"login.jsp\\\">登录</a><a class=\\\"dropdown-item\\\" href=\\\"register.jsp\\\">注册</a>\"</script>\n");
+
+        out.print("<script>var dt = [];</script>");
     }
 %>
 
