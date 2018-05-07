@@ -297,8 +297,10 @@
             jsonArray = new UserServer().getUserCheckinDateTime(userNow);
             out.println("<script> var dt = ");
             out.print(jsonArray.toString());
+            System.out.println(jsonArray.toString());
             out.println("</script>");
         } catch (Exception e) {
+            out.print("<script>var dt = [];</script>");
             e.printStackTrace();
         }
 
@@ -307,6 +309,7 @@
         out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"login.jsp\\\">登录</a><a class=\\\"dropdown-item\\\" href=\\\"register.jsp\\\">注册</a>\"</script>\n");
     }
 %>
+
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/profile_calendar.js"></script>
 </body>
 
