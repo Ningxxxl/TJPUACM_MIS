@@ -2,6 +2,7 @@ package cn.ningxy.service;
 
 import cn.ningxy.bean.User;
 import cn.ningxy.dao.UserDaoServer;
+import net.sf.json.JSONArray;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -144,10 +145,6 @@ public class UserServer implements IUserService {
     }
 
     /**
-     * @param userName
-     * @param oldPWD
-     * @param oldEmail
-     * @param newEmail
      * @Author: ningxy
      * @Description:
      * @params: [userName, oldPWD, oldEmail, newEmail]
@@ -157,5 +154,17 @@ public class UserServer implements IUserService {
     @Override
     public boolean UpdateUSerEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception {
         return new UserDaoServer().UpdateUserEmail(userName, oldPWD, oldEmail, newEmail);
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 获取指定用户的打卡数据（时间+日期）
+     * @params: [userName]
+     * @return: net.sf.json.JSONArray
+     * @Date: 2018/5/7 下午9:14
+     */
+    @Override
+    public JSONArray getUserCheckinDateTime(String userName) throws Exception {
+        return new UserDaoServer().getUserCheckinDateTime(userName);
     }
 }

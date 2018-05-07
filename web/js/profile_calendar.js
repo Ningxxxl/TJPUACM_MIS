@@ -1,10 +1,3 @@
-var dt = [
-    { "date": "2018-05-05", "time": "12:07:34" },
-    { "date": "2018-05-03", "time": "16:23:24" },
-    { "date": "2018-05-02", "time": "11:09:14" },
-    { "date": "2018-05-01", "time": "8:06:04" },
-]
-
 
 function formatDate(nowDate) {
     var year = nowDate.getFullYear();

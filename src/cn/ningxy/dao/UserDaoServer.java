@@ -2,6 +2,9 @@ package cn.ningxy.dao;
 
 import cn.ningxy.bean.User;
 import cn.ningxy.util.MD5Util;
+import com.sun.tools.javac.comp.Check;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import sun.security.rsa.RSASignature;
 
 import java.sql.*;
@@ -563,5 +566,45 @@ public class UserDaoServer implements IUserDaoService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 获取指定用户的打卡数据（日期+时间）
+     * @params: [userName]
+     * @return: net.sf.json.JSONArray
+     * @Date: 2018/5/7 下午8:59
+     */
+    @Override
+    public JSONArray getUserCheckinDateTime(String userName) throws Exception {
+        String sql = "SELECT checkin_date, checkin_time FROM \n" +
+                "users INNER JOIN checkin\n" +
+                "ON users.user_id = checkin.user_id\n" +
+                "WHERE users.username = ?;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, userName);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        if (resultSet == null) return jsonArray;
+
+        while(resultSet.next()) {
+            String checkinDate = resultSet.getString(1);
+            String checkinTime = resultSet.getString(2);
+
+            jsonObject.put("date", checkinDate);
+            jsonObject.put("time", checkinTime);
+
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
     }
 }

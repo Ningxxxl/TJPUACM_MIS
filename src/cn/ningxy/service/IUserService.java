@@ -1,6 +1,7 @@
 package cn.ningxy.service;
 
 import cn.ningxy.bean.User;
+import net.sf.json.JSONArray;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -83,4 +84,13 @@ public interface IUserService {
     * @Date: 2018/5/6 下午2:48
     */
     public boolean UpdateUSerEmail(String userName, String oldPWD, String oldEmail, String newEmail) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 获取指定用户的打卡数据（时间+日期）
+    * @params: [userName]
+    * @return: net.sf.json.JSONArray
+    * @Date: 2018/5/7 下午9:14
+    */
+    public JSONArray getUserCheckinDateTime(String userName) throws Exception;
 }

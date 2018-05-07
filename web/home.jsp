@@ -4,7 +4,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="cn.ningxy.bean.CheckinData" %>
 <%@ page import="cn.ningxy.service.CheckinServer" %>
-<%@ page import="cn.ningxy.service.UserServer" %><%--
+<%@ page import="cn.ningxy.service.UserServer" %>
+<%@ page import="net.sf.json.JSONArray" %>
+<%@ page import="cn.ningxy.bean.User" %>
+<%--
   Created by IntelliJ IDEA.
   User: ningxy
   Date: 2018/4/28
@@ -161,13 +164,6 @@
         </div>
     </nav>
 </header>
-<%--<div class="alert alert-success" role="alert">--%>
-<%--签到成功，你是今日第--%>
-<%--<b>19</b>个签到的人 ~^ ^~--%>
-<%--</div>--%>
-<%--<div class="alert alert-warning" role="alert">--%>
-<%--请不要重复签到 = =。--%>
-<%--</div>--%>
 <main class="container mt-4">
     <div class="row">
         <div class="col-md-9">
@@ -197,7 +193,9 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body table-responsive">
-                            <h5 class="card-title">签到概览 <small> 施工中...功能暂未开放</small></h5>
+                            <h5 class="card-title">个人签到概览
+                                <small style="color: limegreen"> 新功能开放~~</small>
+                            </h5>
                             <table class="table">
                                 <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px" height="90px">
                                 </svg>
@@ -216,6 +214,12 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div class="row">
+                                        <a href="#" class="mr-auto">个人签到概览功能上线！</a>
+                                        <time>2018-05-07</time>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
                                         <a href="#" class="mr-auto">新增加个人设置页面~（头像功能暂未开放）</a>
                                         <time>2018-05-06</time>
                                     </div>
@@ -224,12 +228,6 @@
                                     <div class="row">
                                         <a href="#" class="mr-auto">TJPU首个ACM个人系统上线啦</a>
                                         <time>2018-05-01</time>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <a href="#" class="mr-auto">这又是一条通知</a>
-                                        <time>2018-04-24</time>
                                     </div>
                                 </li>
                                 <li class="list-group-item">
@@ -250,8 +248,6 @@
                     统计
                 </div>
                 <div class="card-body">
-                    <!-- <h5 class="card-title">签到次数：</h5> -->
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">2018-04-25</h6> -->
                     <p class="card-text">
                         今日Top3：<br>
                         <%
@@ -260,18 +256,22 @@
                             color[1] = "#ff3c97";
                             color[2] = "D559FF";
 
-                            ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinList();
+                            ArrayList<CheckinData> checkinDataArrayList = null;
+                            try {
+                                checkinDataArrayList = new CheckinServer().getCheckinList();
+                                if (checkinDataArrayList != null) {
+                                    for (int i = 0; i < checkinDataArrayList.size() && i < 3; i++) {
 
-                            if (checkinDataArrayList != null) {
-                                for (int i = 0; i < checkinDataArrayList.size() && i < 3; i++) {
+                                        String checkinTop3 = null;
+                                        String checkinListUserName = checkinDataArrayList.get(i).getUserName();
+                                        String checkinListTime = checkinDataArrayList.get(i).getCheckinTime();
 
-                                    String checkinTop3 = null;
-                                    String checkinListUserName = checkinDataArrayList.get(i).getUserName();
-                                    String checkinListTime = checkinDataArrayList.get(i).getCheckinTime();
-
-                                    checkinTop3 = String.format("No.%d %s    -> %s ", i + 1, checkinListUserName, checkinListTime);
-                                    out.print("<p style=\"color: " + color[i] + "\">" + checkinTop3 + "</p>");
+                                        checkinTop3 = String.format("No.%d %s    -> %s ", i + 1, checkinListUserName, checkinListTime);
+                                        out.print("<p style=\"color: " + color[i] + "\">" + checkinTop3 + "</p>");
+                                    }
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         %>
                     </p>
@@ -287,20 +287,27 @@
     String userNow = new UserServer().getUserNow(request);
     System.out.println("home | " + userNow);
     out.print("<script>userNow = '" + userNow + "';</script>");
-//    out.print("userNow = '"+ userNow +"';");
 
     if (userNow != null) {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"" + userNow + "\";</script>");
-//        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"#\\\">设置</a>\";</script>");
-//        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" onclick=\\\"sendRequestByPost2()\\\">登出</a>\";</script>");
+
+//        获取用户打卡记录
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new UserServer().getUserCheckinDateTime(userNow);
+            out.println("<script> var dt = ");
+            out.print(jsonArray.toString());
+            out.println("</script>");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     } else {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"未登录\";</script>");
         out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"login.jsp\\\">登录</a><a class=\\\"dropdown-item\\\" href=\\\"register.jsp\\\">注册</a>\"</script>\n");
     }
 %>
-
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/profile_calendar.js"></script>
 </body>
-
 
 </html>
