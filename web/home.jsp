@@ -194,7 +194,7 @@
                     <div class="card">
                         <div class="card-body table-responsive">
                             <h5 class="card-title">个人签到概览
-                                <small style="color: limegreen"> 新功能开放~~</small>
+                                <small style="color: limegreen"> <span class="badge badge-primary">NEW</span> 新功能开放~~</small>
                             </h5>
                             <table class="table">
                                 <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px" height="90px">

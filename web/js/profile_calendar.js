@@ -35,7 +35,7 @@ $(document).ready(function () {
         }
         for (var i in dt) {
             var cur = $("[date = " + dt[i].date + "]");
-            cur.attr("fill", "#007acc");
+            cur.attr("fill", "#ffb62f");
             cur.attr("data-original-title", cur.attr("data-original-title") + ": " + dt[i].time);
         }
     }
