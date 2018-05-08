@@ -64,46 +64,48 @@
                 <div class="card-body">
                     <h5 class="card-title">排名</h5>
                     <h6 class="card-subtitle mb-2 text-muted">大佬别签啦我都跟不上啦</h6>
-                    <table class="table text-center table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">用户名</th>
-                            <th scope="col">签到次数</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <%
-                            ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank();
+                    <div class="table-responsive">
+                        <table class="table text-center table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">用户名</th>
+                                <th scope="col">签到次数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank();
 
-                            int rowId = 0;  //列表行号
-                            int rank = 0;   //用户排名
+                                int rowId = 0;  //列表行号
+                                int rank = 0;   //用户排名
 
-                            int preFrequency = 0;
+                                int preFrequency = 0;
 
-                            for (CheckinData checkinData : checkinDataArrayList) {
-                                rowId += 1;
+                                for (CheckinData checkinData : checkinDataArrayList) {
+                                    rowId += 1;
 
-                                String userName = checkinData.getUserName();        //用户名
-                                int frequency = checkinData.getCheckinFrequency();  //打卡次数
+                                    String userName = checkinData.getUserName();        //用户名
+                                    int frequency = checkinData.getCheckinFrequency();  //打卡次数
 
-                                if (rank == 0 || preFrequency != frequency) {
-                                    rank = rowId;
+                                    if (rank == 0 || preFrequency != frequency) {
+                                        rank = rowId;
+                                    }
+                                    preFrequency = frequency;
+
+                                    out.print("" +
+                                            "<tr>\n" +
+                                            "    <th scope=\"row\">" + rank + "</th>\n" +
+                                            "    <td>\n" +
+                                            "        <a href=\"#\">" + userName + "</a>\n" +
+                                            "    </td>\n" +
+                                            "    <td>" + frequency + "</td>\n" +
+                                            "</tr>");
                                 }
-                                preFrequency = frequency;
-
-                                out.print("" +
-                                        "<tr>\n" +
-                                        "    <th scope=\"row\">" + rank + "</th>\n" +
-                                        "    <td>\n" +
-                                        "        <a href=\"#\">" + userName + "</a>\n" +
-                                        "    </td>\n" +
-                                        "    <td>" + frequency + "</td>\n" +
-                                        "</tr>");
-                            }
-                        %>
-                        </tbody>
-                    </table>
+                            %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
