@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <h5 class="card-title">排名</h5>
                     <h6 class="card-subtitle mb-2 text-muted">大佬别签啦我都跟不上啦</h6>
-                    <table class="table text-center">
+                    <table class="table text-center table-hover">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
