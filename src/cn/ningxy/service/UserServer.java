@@ -2,6 +2,8 @@ package cn.ningxy.service;
 
 import cn.ningxy.bean.User;
 import cn.ningxy.dao.UserDaoServer;
+import cn.ningxy.util.JWTUtil;
+import io.jsonwebtoken.Claims;
 import net.sf.json.JSONArray;
 
 import javax.servlet.http.Cookie;
@@ -99,9 +101,20 @@ public class UserServer implements IUserService {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("username")) {
-                    System.out.println("cookies = " + cookies[i].getValue());
-                    userNow = cookies[i].getValue();
+//                if (cookies[i].getName().equals("username")) {
+//                    System.out.println("UserServer | cookies = " + cookies[i].getValue());
+//                    userNow = cookies[i].getValue();
+//                }
+
+                if (cookies[i].getName().equals("JWT")) {
+                    try {
+                        Claims claims = JWTUtil.praseJWT(cookies[i].getValue());
+                        userNow = claims.getSubject();
+                        System.out.println("UserServer | claims.getSubject() = " + claims.getSubject());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("UserServer | JWT错误");
+                    }
                 }
             }
         }
@@ -146,7 +159,7 @@ public class UserServer implements IUserService {
 
     /**
      * @Author: ningxy
-     * @Description:
+     * @Description: 更新用户邮箱
      * @params: [userName, oldPWD, oldEmail, newEmail]
      * @return: boolean
      * @Date: 2018/5/6 下午2:48

@@ -2,6 +2,7 @@ package cn.ningxy.servlet;
 
 import cn.ningxy.bean.User;
 import cn.ningxy.service.UserServer;
+import cn.ningxy.util.JWTUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ public class LoginServlet extends HttpServlet {
         String userName = request.getParameter("username");
         String userPassword = request.getParameter("passwd");
         String isRemember = request.getParameter("isRemember");
+        String token = "";
 
         User user = null;
 
@@ -30,16 +32,25 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             request.setAttribute("loginRes", "succeed");
 
-            session.setAttribute("userName", userName);
-            session.setAttribute("loginRes", "succeed");
-            Cookie cookie = new Cookie("username", userName);
             System.out.println("isRemember = " + isRemember);
-            if (isRemember != null && isRemember.equals("on")) {
-                cookie.setMaxAge(3 * 60 * 60);
-            } else {
-                cookie.setMaxAge(10 * 60);
+
+//            基于JWT登录
+            try {
+                token = JWTUtil.createJWT(userName, 3 * 60 * 60 * 1000);
+                Cookie cookie = new Cookie("userToken", token);
+                cookie.setMaxAge(20);
+                response.addCookie(cookie);
+                System.out.println("LoginServlet | [" + userName + "] Token = [" + token + "]");
+                if (isRemember != null && isRemember.equals("on")) {
+                    cookie.setMaxAge(3 * 60 * 60);
+                } else {
+                    cookie.setMaxAge(10 * 60);
+                }
+                response.addCookie(cookie);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            response.addCookie(cookie);
+
         } else {
             session.setAttribute("loginRes", "failed");
             request.setAttribute("loginRes", "failed");

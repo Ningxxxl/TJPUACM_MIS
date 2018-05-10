@@ -29,7 +29,7 @@ public class LogoutServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (userNow != null) {
-            Cookie cookie = new Cookie("username", userNow);
+            Cookie cookie = new Cookie("userToken", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
             out.print("logoutSucceed");
