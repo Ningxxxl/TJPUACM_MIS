@@ -23,12 +23,12 @@ public interface ICheckinService {
 
     /**
     * @Author: ningxy
-    * @Description: 获取总打卡排名
-    * @params: []
+    * @Description: 分页获取总打卡排名
+    * @params: [pageNow, pageSize]
     * @return: java.util.ArrayList<cn.ningxy.bean.CheckinData>
-    * @Date: 2018/4/30 下午12:41
+    * @Date: 2018/5/10 下午9:28
     */
-    public ArrayList<CheckinData> getCheckinRank() throws Exception;
+    public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception;
 
     /**
     * @Author: ningxy

@@ -30,14 +30,14 @@ public class CheckinServer implements ICheckinService {
 
     /**
      * @Author: ningxy
-     * @Description: 获取总打卡排名
-     * @params: []
+     * @Description: 分页获取总打卡排名
+     * @params: [pageNow, pageSize]
      * @return: java.util.ArrayList<cn.ningxy.bean.CheckinData>
-     * @Date: 2018/4/30 下午12:41
+     * @Date: 2018/5/10 下午9:28
      */
     @Override
-    public ArrayList<CheckinData> getCheckinRank() throws Exception {
-        return new CheckinDao().getCheckinRank();
+    public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception {
+        return new CheckinDao().getCheckinRank(pageNow, pageSize);
     }
 
     /**

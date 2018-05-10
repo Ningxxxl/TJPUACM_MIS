@@ -22,10 +22,19 @@ public interface ICheckinDao {
 
     /**
     * @Author: ningxy
-    * @Description: 获取总打卡排名
-    * @params: []
+    * @Description: 获取总打卡排名列表
+    * @params: [pageNow, pageSize]
     * @return: java.util.ArrayList<cn.ningxy.bean.CheckinData>
-    * @Date: 2018/4/30 下午12:28
+    * @Date: 2018/5/10 下午9:18
     */
-    public ArrayList<CheckinData> getCheckinRank() throws Exception;
+    public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception;
+
+    /**
+    * @Author: ningxy
+    * @Description: 获取总打卡排名的数据行数
+    * @params: []
+    * @return: int
+    * @Date: 2018/5/10 下午9:08
+    */
+    public int getCheckinQuantity();
 }

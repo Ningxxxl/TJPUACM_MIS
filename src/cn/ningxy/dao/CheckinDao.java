@@ -65,27 +65,31 @@ public class CheckinDao implements ICheckinDao {
 
     /**
      * @Author: ningxy
-     * @Description: 获取总打卡排名
-     * @params: []
+     * @Description: 获取总打卡排名列表
+     * @params: [pageNow, pageSize]
      * @return: java.util.ArrayList<cn.ningxy.bean.CheckinData>
-     * @Date: 2018/4/30 下午12:28
+     * @Date: 2018/5/10 下午9:18
      */
     @Override
-    public ArrayList<CheckinData> getCheckinRank() throws Exception {
+    public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception {
 
-        String sql = "SELECT A.username, B.cnt \n" +
-                "FROM users AS A \n" +
-                "INNER JOIN (\n" +
-                "  SELECT user_id, COUNT(*) cnt \n" +
-                "  FROM checkin \n" +
-                "  GROUP BY user_id \n" +
-                ") AS B \n" +
-                "ON A.user_id = B.user_id \n" +
-                "ORDER BY B.cnt DESC;";
+        int rowCount = getCheckinQuantity();
+
+        String sql = "SELECT\n" +
+                "\tA.username,\n" +
+                "\tB.cnt \n" +
+                "FROM\n" +
+                "\tusers AS A\n" +
+                "\tINNER JOIN ( SELECT user_id, COUNT( * ) cnt FROM checkin GROUP BY user_id ) AS B ON A.user_id = B.user_id \n" +
+                "ORDER BY\n" +
+                "\tB.cnt DESC\n" +
+                "LIMIT ?, ?;";
 
         Connection connection = new ConnectDB().getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, String.valueOf((pageNow - 1) * pageSize));
 
         ResultSet resultSet = null;
 
@@ -116,5 +120,33 @@ public class CheckinDao implements ICheckinDao {
         }
 
         return result;
+    }
+
+    /**
+     * @Author: ningxy
+     * @Description: 获取总打卡排名的数据行数
+     * @params: []
+     * @return: int
+     * @Date: 2018/5/10 下午9:08
+     */
+    @Override
+    public int getCheckinQuantity() {
+
+        String sql = "SELECT COUNT(*) FROM checkin;";
+
+        Connection connection = new ConnectDB().getConnection();
+
+        int res = 0;
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            res = resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return res;
     }
 }
