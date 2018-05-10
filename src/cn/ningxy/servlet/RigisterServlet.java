@@ -32,6 +32,12 @@ public class RigisterServlet extends HttpServlet {
         String userClass = request.getParameter("class");
         String userRealName = request.getParameter("real_name");
 
+        if (userName.length() < 6 || userName.length() > 20 || userPassword.length() < 6 || userPassword.length() > 20) {
+            request.setAttribute("registerRes", "error");
+            request.getRequestDispatcher("register.jsp").forward(request,response);
+            return;
+        }
+
         User user = new User(userName, userPassword, userRealName, userEmail, userNo, userSchool, userDept, userMajor, userClass);
 
 //        System.out.println(userName);
