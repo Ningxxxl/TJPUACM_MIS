@@ -106,7 +106,7 @@ public class UserServer implements IUserService {
 //                    userNow = cookies[i].getValue();
 //                }
 
-                if (cookies[i].getName().equals("JWT")) {
+                if (cookies[i].getName().equals("userToken")) {
                     try {
                         Claims claims = JWTUtil.praseJWT(cookies[i].getValue());
                         userNow = claims.getSubject();
