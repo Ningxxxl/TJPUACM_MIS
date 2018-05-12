@@ -1,6 +1,7 @@
 package cn.ningxy.filter;
 
 
+import cn.ningxy.dao.UserDaoServer;
 import cn.ningxy.service.UserServer;
 
 import javax.servlet.*;
@@ -39,25 +40,22 @@ public class AuthFilter implements Filter {
 //        获取session对象，强转为String
         HttpSession httpServletRequestSession = httpServletRequest.getSession();
 //        获取session中的loginRes值，强转为String
-        String loginRes = (String) httpServletRequestSession.getAttribute("loginRes");
+//        String loginRes = (String) httpServletRequestSession.getAttribute("loginRes");
+
+        String userNow = new UserServer().getUserNow(httpServletRequest);
 
         System.out.println("AuthFilter | Test AuthFilter.");
-        System.out.println("AuthFilter | loginRes : " + loginRes);
+//        System.out.println("AuthFilter | loginRes : " + loginRes);
         System.out.println("AuthFilter | servletPath : " + servletPath);
 
 //        从cookie中获取当前登录用户信息
-        String userNow = new UserServer().getUserNow(httpServletRequest);
+//        String userNow = new UserServer().getUserNow(httpServletRequest);
 
         System.out.println("AuthFilter | userNow : " + userNow);
 
         if (servletPath != null && servletPath.equals("/profile.jsp")) {
-            if (loginRes != null && loginRes.equals("succeed") && userNow != null) {
+            if (userNow != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
-            } else if (loginRes != null && loginRes.equals("failed")) {
-                httpServletRequest.setAttribute("loginRes", "failed");
-                httpServletRequest.setAttribute("returnURL", servletPath);
-//                登录失败，跳转到login.jsp
-                httpServletRequest.getRequestDispatcher("login.jsp").forward(httpServletRequest, httpServletResponse);
             } else {
                 httpServletRequest.setAttribute("loginRes", "notLogin");
                 httpServletRequest.setAttribute("retrunURL", servletPath);
