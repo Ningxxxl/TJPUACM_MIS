@@ -74,6 +74,10 @@ public class CheckinDao implements ICheckinDao {
     public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception {
 
         int rowCount = getCheckinQuantity();
+        int totPage = (rowCount - 1) / pageNow + 1;
+
+        if(pageNow < 1) pageNow = 1;
+        if(pageNow > totPage) pageNow = totPage;
 
         String sql = "SELECT\n" +
                 "\tA.username,\n" +
@@ -89,7 +93,8 @@ public class CheckinDao implements ICheckinDao {
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-        preparedStatement.setString(1, String.valueOf((pageNow - 1) * pageSize));
+        preparedStatement.setInt(1, (pageNow - 1) * pageSize);
+        preparedStatement.setInt(2, pageSize);
 
         ResultSet resultSet = null;
 

@@ -87,6 +87,14 @@
         <servlet-name>updateemail</servlet-name>
         <url-pattern>/UpdateEmailServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>showrankservlet</servlet-name>
+        <servlet-class>cn.ningxy.servlet.ShowProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>showrankservlet</servlet-name>
+        <url-pattern>/ShowRankServlet</url-pattern>
+    </servlet-mapping>
 
     <!--welcome-file-list-->
     <welcome-file-list>

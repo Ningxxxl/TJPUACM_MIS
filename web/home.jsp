@@ -133,6 +133,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">TJPU ACM Borad</a>
+            <a href="ShowProfileServlet?rankPage=1"><button>hahaha</button></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">

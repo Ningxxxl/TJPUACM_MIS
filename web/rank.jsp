@@ -74,14 +74,21 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <form action="ShowRankServlet" method="get">
+                                <input type="hidden" name="rankPage" value="1">
+                                <input type="submit">
+                            </form>
                             <%
-                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank();
+//                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(1, 10);
+                                ArrayList<CheckinData> checkinDataArrayList = (ArrayList<CheckinData>) request.getAttribute("rankList");
+
+                                System.out.println(checkinDataArrayList == null);
 
                                 int rowId = 0;  //列表行号
                                 int rank = 0;   //用户排名
 
                                 int preFrequency = 0;
-
+                                if (checkinDataArrayList != null)
                                 for (CheckinData checkinData : checkinDataArrayList) {
                                     rowId += 1;
 
