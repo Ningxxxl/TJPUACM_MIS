@@ -133,7 +133,6 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">TJPU ACM Borad</a>
-            <a href="ShowProfileServlet?rankPage=1"><button>hahaha</button></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -144,7 +143,7 @@
                     <a class=" nav-item active nav-link" href="#">Home
                         <span class="sr-only">(current)</span>
                     </a>
-                    <a class="nav-item nav-link" href="rank.jsp">Rank</a>
+                    <a class="nav-item nav-link" href="ShowRank">Rank</a>
                     <a class="nav-item nav-link" href="about.jsp">About
                     </a>
                 </div>

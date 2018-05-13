@@ -74,40 +74,31 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <form action="ShowRankServlet" method="get">
-                                <input type="hidden" name="rankPage" value="1">
-                                <input type="submit">
-                            </form>
+
                             <%
-//                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(1, 10);
+                                //                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(1, 10);
                                 ArrayList<CheckinData> checkinDataArrayList = (ArrayList<CheckinData>) request.getAttribute("rankList");
 
                                 System.out.println(checkinDataArrayList == null);
 
-                                int rowId = 0;  //列表行号
                                 int rank = 0;   //用户排名
 
-                                int preFrequency = 0;
-                                if (checkinDataArrayList != null)
-                                for (CheckinData checkinData : checkinDataArrayList) {
-                                    rowId += 1;
+                                if (checkinDataArrayList != null) {
+                                    for (CheckinData checkinData : checkinDataArrayList) {
+                                        rank += 1;
 
-                                    String userName = checkinData.getUserName();        //用户名
-                                    int frequency = checkinData.getCheckinFrequency();  //打卡次数
+                                        String userName = checkinData.getUserName();        //用户名
+                                        int frequency = checkinData.getCheckinFrequency();  //打卡次数
 
-                                    if (rank == 0 || preFrequency != frequency) {
-                                        rank = rowId;
+                                        out.print("" +
+                                                "<tr>\n" +
+                                                "    <th scope=\"row\">" + rank + "</th>\n" +
+                                                "    <td>\n" +
+                                                "        <a href=\"#\">" + userName + "</a>\n" +
+                                                "    </td>\n" +
+                                                "    <td>" + frequency + "</td>\n" +
+                                                "</tr>");
                                     }
-                                    preFrequency = frequency;
-
-                                    out.print("" +
-                                            "<tr>\n" +
-                                            "    <th scope=\"row\">" + rank + "</th>\n" +
-                                            "    <td>\n" +
-                                            "        <a href=\"#\">" + userName + "</a>\n" +
-                                            "    </td>\n" +
-                                            "    <td>" + frequency + "</td>\n" +
-                                            "</tr>");
                                 }
                             %>
                             </tbody>

@@ -44,7 +44,6 @@ public class AuthFilter implements Filter {
 
         String userNow = new UserServer().getUserNow(httpServletRequest);
 
-        System.out.println("AuthFilter | Test AuthFilter.");
 //        System.out.println("AuthFilter | loginRes : " + loginRes);
         System.out.println("AuthFilter | servletPath : " + servletPath);
 

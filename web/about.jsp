@@ -32,7 +32,7 @@
                     <a class=" nav-item nav-link" href="home.jsp">Home
                         <span class="sr-only">(current)</span>
                     </a>
-                    <a class="nav-item nav-link" href="rank.jsp">Rank</a>
+                    <a class="nav-item nav-link" href="ShowRank">Rank</a>
                     <a class="nav-item active nav-link" href="#">About
                     </a>
                 </div>
