@@ -7,6 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="footer mt-4 text-center">
-    <p>Copyright&copy2018 | TJPUACM release-0.8.3-180510 Beta</p>
+    <p>Copyright&copy2018 | TJPUACM release-0.8.4-180515 Beta</p>
     <p>如果发现bug或者有其他建议，欢迎联系 <a href="mailto:onlinejudge@tjpuacm.cn">onlinejudge@tjpuacm.cn</a></p>
 </footer>

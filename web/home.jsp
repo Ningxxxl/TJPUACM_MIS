@@ -194,7 +194,7 @@
                     <div class="card">
                         <div class="card-body table-responsive">
                             <h5 class="card-title">个人签到概览
-                                <small style="color: limegreen"> <span class="badge badge-primary">NEW</span> 新功能开放~~</small>
+                                <small style="color: limegreen"> <span class="badge badge-primary">NEW</span></small>
                             </h5>
                             <table class="table">
                                 <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px" height="90px">
@@ -214,6 +214,12 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div class="row">
+                                        <a href="#" class="mr-auto">要期末啦T^T 更新会减速</a>
+                                        <time>2018-04-23</time>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="row">
                                         <a href="#" class="mr-auto">个人签到概览功能上线！</a>
                                         <time>2018-05-07</time>
                                     </div>
@@ -228,12 +234,6 @@
                                     <div class="row">
                                         <a href="#" class="mr-auto">TJPU首个ACM个人系统上线啦</a>
                                         <time>2018-05-01</time>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <a href="#" class="mr-auto">这是一条通知</a>
-                                        <time>2018-04-23</time>
                                     </div>
                                 </li>
                             </ul>
