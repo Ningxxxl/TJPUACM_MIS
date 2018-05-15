@@ -6,14 +6,6 @@
 
     <!--filter-->
     <filter>
-        <filter-name>rankPageFilter</filter-name>
-        <filter-class>cn.ningxy.filter.RankPageFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>rankPageFilter</filter-name>
-        <url-pattern>/rank.jsp</url-pattern>
-    </filter-mapping>
-    <filter>
         <filter-name>setCharacterEncodingFilter</filter-name>
         <filter-class>cn.ningxy.filter.SetCharacterEncodingFilter</filter-class>
     </filter>
@@ -102,10 +94,6 @@
     <servlet-mapping>
         <servlet-name>showrankservlet</servlet-name>
         <url-pattern>/ShowRank</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>showrankservlet</servlet-name>
-        <url-pattern>/rank.jsp</url-pattern>
     </servlet-mapping>
 
     <!--welcome-file-list-->

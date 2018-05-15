@@ -46,6 +46,7 @@ public class ShowRankServlet extends HttpServlet {
             request.setAttribute("rankPage", rankPage);     //当前页码
             request.setAttribute("totPage", totPage);     //总页数
             request.setAttribute("pageSize", pageSize);     //总页数
+            request.setAttribute("validate", "OKOK");
 
             request.getRequestDispatcher("rank.jsp").forward(request, response);
         } catch (Exception e) {

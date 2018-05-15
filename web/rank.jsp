@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="cn.ningxy.bean.CheckinData" %>
-<%@ page import="cn.ningxy.service.CheckinServer" %>
 <%@ page import="cn.ningxy.service.UserServer" %><%--
   Created by IntelliJ IDEA.
   User: ningxy
@@ -76,6 +75,11 @@
                             <tbody>
 
                             <%
+                                String validate = (String) request.getAttribute("validate");
+                                if (validate == null || "OKOK".equals(validate) == false) {
+                                    System.out.println("rank.jsp | 拦截到通过URL访问rank.jsp页面");
+                                    response.sendRedirect("home.jsp");return;
+                                }
                                 ArrayList<CheckinData> checkinDataArrayList = (ArrayList<CheckinData>) request.getAttribute("rankList");
                                 int rankPage = (int) request.getAttribute("rankPage");
                                 int totPage = (int) request.getAttribute("totPage");
