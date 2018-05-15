@@ -107,7 +107,7 @@
                             %>
                             </tbody>
                         </table>
-                        <nav>
+                        <div class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:set var="totPage" value="<%=totPage%>"/>
                                 <c:set var="rankPage" value="<%=rankPage%>"/>
@@ -144,7 +144,7 @@
                                     </li>
                                 </c:if>
                             </ul>
-                        </nav>
+                        </div>
                     </div>
                 </div>
             </div>
