@@ -73,12 +73,6 @@ public class CheckinDao implements ICheckinDao {
     @Override
     public ArrayList<CheckinData> getCheckinRank(int pageNow, int pageSize) throws Exception {
 
-        int rowCount = getCheckinQuantity();
-        int totPage = (rowCount - 1) / pageNow + 1;
-
-        if(pageNow < 1) pageNow = 1;
-        if(pageNow > totPage) pageNow = totPage;
-
         String sql = "SELECT\n" +
                 "\tA.username,\n" +
                 "\tB.cnt \n" +
@@ -137,7 +131,7 @@ public class CheckinDao implements ICheckinDao {
     @Override
     public int getCheckinQuantity() {
 
-        String sql = "SELECT COUNT(*) FROM checkin;";
+        String sql = "SELECT COUNT(A.user_id) FROM (SELECT user_id FROM checkin GROUP BY user_id) A;";
 
         Connection connection = new ConnectDB().getConnection();
 

@@ -101,11 +101,6 @@ public class UserServer implements IUserService {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
-//                if (cookies[i].getName().equals("username")) {
-//                    System.out.println("UserServer | cookies = " + cookies[i].getValue());
-//                    userNow = cookies[i].getValue();
-//                }
-
                 if (cookies[i].getName().equals("userToken")) {
                     try {
                         Claims claims = JWTUtil.praseJWT(cookies[i].getValue());

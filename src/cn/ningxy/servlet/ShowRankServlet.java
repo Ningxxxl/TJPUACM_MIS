@@ -19,12 +19,10 @@ import java.util.ArrayList;
 @WebServlet(name = "ShowRankServlet")
 public class ShowRankServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("ShowRankServlet | rankPage = ???");
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("nononono");
 
         String pageString = request.getParameter("rankPage");
 
@@ -35,9 +33,19 @@ public class ShowRankServlet extends HttpServlet {
         System.out.println("ShowRankServlet | rankPage = " + rankPage);
 
         try {
-            ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(rankPage, 10);
+            int pageSize = 10;
+            int rowCount = new CheckinServer().getCheckinQuantity();
+            int totPage = (rowCount - 1) / pageSize + 1;
+
+            if(rankPage < 1) rankPage = 1;
+            if(rankPage > totPage) rankPage = totPage;
+
+            ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(rankPage, pageSize);
 
             request.setAttribute("rankList", checkinDataArrayList);
+            request.setAttribute("rankPage", rankPage);     //当前页码
+            request.setAttribute("totPage", totPage);     //总页数
+            request.setAttribute("pageSize", pageSize);     //总页数
 
             request.getRequestDispatcher("rank.jsp").forward(request, response);
         } catch (Exception e) {

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="cn.ningxy.bean.CheckinData" %>
 <%@ page import="cn.ningxy.service.CheckinServer" %>
@@ -9,6 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -46,10 +48,8 @@
                         Null
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" id="dropdown-menu">
-                        <%--<a class="dropdown-item" href="#">账户设置</a>--%>
-                        <%--<a class="dropdown-item" href="#">后台管理</a>--%>
-                        <%--<div class="dropdown-divider"></div>--%>
                         <a class="dropdown-item" href="profile.jsp">设置</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" onclick="sendRequestByPost2()">登出</a>
                     </div>
                 </div>
@@ -76,12 +76,12 @@
                             <tbody>
 
                             <%
-                                //                                ArrayList<CheckinData> checkinDataArrayList = new CheckinServer().getCheckinRank(1, 10);
                                 ArrayList<CheckinData> checkinDataArrayList = (ArrayList<CheckinData>) request.getAttribute("rankList");
+                                int rankPage = (int) request.getAttribute("rankPage");
+                                int totPage = (int) request.getAttribute("totPage");
+                                int pageSize = (int) request.getAttribute("pageSize");
 
-                                System.out.println(checkinDataArrayList == null);
-
-                                int rank = 0;   //用户排名
+                                int rank = (rankPage - 1) * pageSize;   //用户排名
 
                                 if (checkinDataArrayList != null) {
                                     for (CheckinData checkinData : checkinDataArrayList) {
@@ -103,6 +103,44 @@
                             %>
                             </tbody>
                         </table>
+                        <nav>
+                            <ul class="pagination">
+                                <c:set var="totPage" value="<%=totPage%>"/>
+                                <c:set var="rankPage" value="<%=rankPage%>"/>
+                                <c:if test="${rankPage <= 1}">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="ShowRank?rankPage=<%=rankPage-1%>">Prev</a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${rankPage > 1}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="ShowRank?rankPage=<%=rankPage-1%>">Prev</a>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" begin="1" end="${totPage}">
+                                    <c:if test="${rankPage == i}">
+                                        <li class="page-item active">
+                                            <a class="page-link" href="ShowRank?rankPage=${i}">${i}</a>
+                                        </li>
+                                    </c:if>
+                                    <c:if test="${rankPage != i}">
+                                        <li class="page-item">
+                                            <a class="page-link" href="ShowRank?rankPage=${i}">${i}</a>
+                                        </li>
+                                    </c:if>
+                                </c:forEach>
+                                <c:if test="${rankPage >= totPage}">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="ShowRank?rankPage=<%=rankPage+1%>">Next</a>
+                                    </li>
+                                </c:if>
+                                <c:if test="${rankPage < totPage}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="ShowRank?rankPage=<%=rankPage+1%>">Next</a>
+                                    </li>
+                                </c:if>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -116,11 +154,9 @@
     String userNow = new UserServer().getUserNow(request);
     System.out.println("home | " + userNow);
     out.print("<script>userNow = '" + userNow + "';</script>");
-//    out.print("userNow = '"+ userNow +"';");
 
     if (userNow != null) {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"" + userNow + "\";</script>");
-//        out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"#\\\">设置</a>\";</script>");
     } else {
         out.println("<script>document.getElementById(\"navbardrop\").innerHTML=\"未登录\";</script>");
         out.println("<script>document.getElementById(\"dropdown-menu\").innerHTML = \"<a class=\\\"dropdown-item\\\" href=\\\"login.jsp\\\">登录</a><a class=\\\"dropdown-item\\\" href=\\\"register.jsp\\\">注册</a>\"</script>\n");

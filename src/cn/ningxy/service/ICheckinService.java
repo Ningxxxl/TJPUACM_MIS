@@ -38,4 +38,13 @@ public interface ICheckinService {
     * @Date: 2018/4/30 下午3:46
     */
     public boolean CheckIPAddr(ServletRequest servletRequest);
+
+    /**
+    * @Author: ningxy
+    * @Description: 获取总打卡排名的数据行数
+    * @params: []
+    * @return: int
+    * @Date: 2018/5/15 下午1:46
+    */
+    public int getCheckinQuantity();
 }

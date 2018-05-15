@@ -64,4 +64,16 @@ public class CheckinServer implements ICheckinService {
             return false;
         }
     }
+
+    /**
+     * @Author: ningxy
+     * @Description: 获取总打卡排名的数据行数
+     * @params: []
+     * @return: int
+     * @Date: 2018/5/15 下午1:46
+     */
+    @Override
+    public int getCheckinQuantity() {
+        return new CheckinDao().getCheckinQuantity();
+    }
 }
