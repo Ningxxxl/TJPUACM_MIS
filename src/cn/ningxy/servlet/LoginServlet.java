@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
         String userName = request.getParameter("username");
         String userPassword = request.getParameter("passwd");
         String isRemember = request.getParameter("isRemember");
-        String token = "";
+        String token;
 
         User user = null;
 

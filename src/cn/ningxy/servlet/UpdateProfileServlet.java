@@ -40,9 +40,7 @@ public class UpdateProfileServlet extends HttpServlet {
         System.out.println("UpdateProfileServlet | result = " + result);
         if (result) {
             request.setAttribute("updateProfileRes", "succeed");
-        } else {
-            request.setAttribute("updateProfileRes", "failed");
-        }
+        } else request.setAttribute("updateProfileRes", "failed");
 
         request.getRequestDispatcher("profile.jsp").forward(request,response);
     }

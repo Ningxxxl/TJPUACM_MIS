@@ -31,7 +31,7 @@ public class CheckinServlet extends HttpServlet {
         String userNow = new UserServer().getUserNow(request);
         System.out.println("CheckinServlet | " + userNow);
 
-        if(userNow != null) {
+        if (userNow != null) {
             isLogin = true;
         }
 
@@ -43,16 +43,16 @@ public class CheckinServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        if (isLogin == false) {
+        if (!isLogin) {
             out.print("notLogin");
         } else {
-            if (isAlreadyCheckedin == true) {
+            if (isAlreadyCheckedin) {
                 out.print("checkedin");
             } else {
 
                 isIPLegal = new CheckinServer().CheckIPAddr(request);
 
-                if (isIPLegal == false) {
+                if (!isIPLegal) {
                     out.print("IPIllegal");
                 } else {
                     try {
@@ -61,7 +61,7 @@ public class CheckinServlet extends HttpServlet {
                         e.printStackTrace();
                     }
 
-                    if (isCheckinSuccess == true) {
+                    if (isCheckinSuccess) {
                         out.print("success");
                     } else {
                         out.print("error");

@@ -297,7 +297,7 @@
             jsonArray = new UserServer().getUserCheckinDateTime(userNow);
             out.println("<script> var dt = ");
             out.print(jsonArray.toString());
-            System.out.println(jsonArray.toString());
+//            System.out.println(jsonArray.toString());
             out.println("</script>");
         } catch (Exception e) {
             e.printStackTrace();

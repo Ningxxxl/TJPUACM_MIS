@@ -76,7 +76,7 @@
 
                             <%
                                 String validate = (String) request.getAttribute("validate");
-                                if (validate == null || "OKOK".equals(validate) == false) {
+                                if (validate == null || !"OKOK".equals(validate)) {
                                     System.out.println("rank.jsp | 拦截到通过URL访问rank.jsp页面");
                                     response.sendRedirect("home.jsp");return;
                                 }
