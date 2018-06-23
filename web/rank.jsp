@@ -34,12 +34,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav mr-auto">
-                    <a class=" nav-item nav-link" href="home.jsp">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
+                    <a class=" nav-item nav-link" href="home.jsp">Home</a>
                     <a class="nav-item active nav-link" href="#">Rank</a>
-                    <a class="nav-item nav-link" href="about.jsp">About
-                    </a>
+                    <a class="nav-item nav-link" href="about.jsp">About</a>
+                    <a class="nav-item nav-link" href="tools/jwpt_evaluate.html">Tools</a>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"

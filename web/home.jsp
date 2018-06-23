@@ -140,12 +140,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav mr-auto">
-                    <a class=" nav-item active nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
+                    <a class=" nav-item active nav-link" href="#">Home</a>
                     <a class="nav-item nav-link" href="ShowRank">Rank</a>
-                    <a class="nav-item nav-link" href="about.jsp">About
-                    </a>
+                    <a class="nav-item nav-link" href="about.jsp">About</a>
+                    <a class="nav-item nav-link" href="tools/jwpt_evaluate.html">Tools</a>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"
@@ -168,7 +166,7 @@
     <div class="row">
         <div class="col-md-9">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4" style="margin-right: 27px">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">每日打卡</h5>
@@ -188,13 +186,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-7">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">小工具上线~
+                                <small style="color: limegreen"> <span class="badge badge-primary">NEW</span></small>
+                            </h5>
+                            <p class="card-text">
+                                查成绩之前竟然要评价10多门课程？？？太麻烦了嘤嘤嘤
+                            </p>
+                            <a href="tools/jwpt_evaluate.html" class="btn btn-primary text-light">一键评教</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row mt-4">
                 <div class="col">
                     <div class="card">
                         <div class="card-body table-responsive">
                             <h5 class="card-title">个人签到概览
-                                <small style="color: limegreen"> <span class="badge badge-primary">NEW</span></small>
+                                <small>听说全部点亮可以召唤神龙？</small>
                             </h5>
                             <table class="table">
                                 <svg id="calendar-graph" xmlns="http://www.w3.org/2000/svg" width="768px" height="90px">
@@ -215,7 +226,7 @@
                                 <li class="list-group-item">
                                     <div class="row">
                                         <a href="#" class="mr-auto">要期末啦T^T 更新会减速</a>
-                                        <time>2018-04-23</time>
+                                        <time>2018-05-15</time>
                                     </div>
                                 </li>
                                 <li class="list-group-item">

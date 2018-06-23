@@ -118,6 +118,7 @@
                     </a>
                     <a class="nav-item nav-link" href="ShowRank.jsp">Rank</a>
                     <a class="nav-item nav-link" href="about.jsp">About</a>
+                    <a class="nav-item nav-link" href="tools/jwpt_evaluate.html">Tools</a>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown"

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <title>评教工具 | TJPUACM</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/localization/messages_zh.min.js"></script>
+    <script type="text/javascript">
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            progressBar: true,
+            positionClass: "toast-top-center",
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "4000",
+            extendedTimeOut: "4000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        };
+
+        $(document).ready(function () {
+
+            var baseUrl = "http://tjpuacm.cn:2345/jwpt";
+
+            $("#getCaptcha").on('click', function(){
+                $("#captchaImg").click();
+            });
+
+            $("#captchaImg").on('click', function () {
+                $.ajax({
+                    url: baseUrl + "/evaluate/captcha",
+                    type: "get",
+                    dataType: "jsonp",
+                    // timeout: 4000,
+                    cache: false,
+                    jsonpCallback: "jsonp",
+                    beforeSend: LoadFunction,
+                    success: successFunction,
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    },
+                    complete: completeFunction
+                })
+
+                function LoadFunction() {
+                    $("#captchaSpan").html('获取中...');
+                    $("#captchaSpan").attr({disabled: "disabled"});
+                }
+
+                function successFunction(data) {
+                    console.log(data);
+                    $("#captchaSpan").html('验证码');
+                    var status = data.status;
+                    var jsonData = data.data;
+                    if (status === 500) {
+                        status500();
+                    } else if (status === 404) {
+                        status404();
+                    } else if (status === 200) {
+                        status200(jsonData.captchaImg, jsonData.cookie);
+                    } else {
+                        statusUnknow()
+                    }
+                }
+
+                function completeFunction(data) {
+                    $("#captchaSpan").removeAttr("disabled");
+                }
+
+                function statusUnknow() {
+                    $("#msg").html("未知问题");
+                }
+
+                function status500() {
+                    $("#msg").html("服务器未成功获取验证码，请重试");
+                }
+
+                function status404() {
+                    $("#msg").html("404");
+                }
+
+                function status200(captchaImg, cookie) {
+                    $("#msg").empty;
+                    console.log(JSON.stringify(cookie));
+                    $("#captchaImg").attr("src", captchaImg);
+                    $("#cookieForm").attr("value", JSON.stringify(cookie));
+                    $("#getCaptcha").remove();
+                }
+            });
+
+
+            $("#loginForm").on("submit", function () {
+
+                $(this).ajaxSubmit({
+                    type: 'post', // 提交方式 get/post
+                    url: baseUrl + '/evaluate', // 需要提交的 url
+                    beforeSend: LoadFunction,
+                    success: successFunction,
+                    complete: completeFunction,
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $("#msg").html("评教错误");
+                        $('#loginButton').html("立即评教");
+                        toastr.error("评教错误");
+                    }
+                });
+
+                function successFunction(data) {
+                    console.log(data);
+                    var JsonObj = JSON.parse(data);
+                    console.log(JsonObj.result);
+                    var res = JsonObj.result;
+                    var numAll = JsonObj.numAll;
+                    var numTot = JsonObj.numTot;
+                    var numOK = JsonObj.numOK;
+                    if (res == true && numAll != 0) {
+                        toastr.success("评教成功！");
+                        $("#msg").html("共查询到" + numAll + "门课程<br>" +
+                            "共需评教" + numTot + "门课程<br>" +
+                            "评教成功" + numOK + "门课程<br>" +
+                            "请登录教务系统再次检查评教结果");
+                        $("#modalTitle").html("评教结果");
+                        $("#modalDiv").html("共查询到" + numAll + "门课程<br>" +
+                            "共需评教" + numTot + "门课程<br>" +
+                            "评教成功" + numOK + "门课程<br>" +
+                            "请登录教务系统再次检查评教结果 &#10003");
+                    } else {
+                        toastr.info("请注意");
+                        $("#msg").html("评教失败");
+                        $("#modalTitle").html("评教失败");
+                        $("#modalDiv").html("可能的原因包括但不限于:<br>" +
+                            "1. 由于账号错误造成的登录失败<br>" +
+                            "2. 由于密码错误造成的登录失败<br>" +
+                            "3. 由于验证码错误造成的登录失败<br>" +
+                            "4. 教务系统故障<br><br>" +
+                            "请重试<br>" +
+                            "若多次失败请通知管理员！<br>" +
+                            "<del>BUG是不可能有的，这辈子都不可能有的</del><br>" +
+                            "&#10084 Thanks for your cooperation. ");
+                    }
+                    $('#resultModal').modal({
+                        keyboard: true
+                    })
+                }
+
+                function completeFunction(data) {
+                    $("#loginForm").clearForm();
+                    $('#username').removeAttr("disabled");
+                    $('#pwd').removeAttr("disabled");
+                    $('#captchaCode').removeAttr("disabled");
+                    $("#loginButton").removeAttr("disabled");
+                    $('#loginButton').html("立即评教");
+                    $("#captchaImg").click();
+                    $('#waitDiv').prop("hidden",true);
+                }
+
+                function LoadFunction() {
+                    $("#msg").html('评教中，请稍等...');
+                    $('#loginButton').html("评教中，请稍等...");
+                    $('#waitDiv').removeAttr("hidden");
+                    $('#waitDiv').html("<i class=\"fa fa-spinner fa-spin\"></i> &nbsp;&nbsp;受课程数量和网络影响，最长预计5分钟内完成");
+                    $('#username').attr({disabled: "disabled"});
+                    $('#pwd').attr({disabled: "disabled"});
+                    $('#captchaCode').attr({disabled: "disabled"});
+                    $("#loginButton").attr({disabled: "disabled"});
+                }
+
+                return false; // 阻止表单自动提交事件
+            });
+
+        });
+    </script>
+    <style>
+        img[src=""]{
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../home.jsp">TJPU ACM Borad</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mr-auto">
+                    <a class=" nav-item nav-link" href="../home.jsp">Home</a>
+                    <a class="nav-item nav-link" href="../ShowRank">Rank</a>
+                    <a class="nav-item nav-link" href="../about.jsp">About</a>
+                    <a class="nav-item active nav-link" href="#">Tools</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container mt-4">
+    <div class="row text-center">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row" style="margin-bottom: 40px; margin-top: 50px">
+                <h1 class="display-5" style="margin-left: 15px">
+                    URP 评教助手
+                    <h5><a data-toggle="modal" data-target="#noteModal">
+                        <i class="fa fa-info-circle fa" style="margin-top: 23px; margin-left: 12px"></i>
+                    </a></h5>
+                </h1>
+            </div>
+            <form id="loginForm">
+                <input type="hidden" name="cookieForm" id="cookieForm">
+                <div class="form-group row">
+                    <label for="username" class="col-md-2 col-form-label"><b>账号</b></label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="username" placeholder="username"
+                               name="username" required minlength="4" maxlength="25" autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="pwd" class="col-md-2 col-form-label"><b>密码</b></label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" id="pwd" placeholder="Password"
+                               name="pwd" required minlength="4" maxlength="25">
+                    </div>
+                </div>
+                <div class="form-group row" style="height: 38px">
+                    <label class="col-md-2 col-form-label">
+                        <!--<button type="button" class="btn btn-light" id="getCaptcha">点此获取</button>-->
+                        <span id="captchaSpan"><b>验证码</b></span>
+                    </label>
+                    <div class="input-group col-md-10">
+                        <input type="text" class="form-control" placeholder="Captcha Code"
+                               aria-describedby="basic-addon1" id="captchaCode" name="captchaCode"
+                               required minlength="4" maxlength="25">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1" style="padding: 0px">
+                                <button type="button" class="btn btn-light" style="width: 100px; position: absolute; padding-top: 2px"
+                                        id="getCaptcha" data-toggle="modal" data-target="#noteModal">
+                                    点击获取
+                                </button>
+                                <img src="" style="width: 100px; height: 32px;" id="captchaImg">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--<div id="waitDiv" style="color: rgb(255,84,112)"></div>-->
+                <div id="waitDiv" class="alert alert-info" role="alert" style="color: rgb(255,84,112);" hidden>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-offset-2 col-md-12">
+                        <button id="loginButton" class="btn btn-lg btn-outline-success btn-block" style="margin-top: 40px">
+                            立即评教
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!--<div id="msg">测试用Div</div>-->
+        </div>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalDiv">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#noteModal">-->
+        <!--Launch demo modal-->
+    <!--</button>-->
+
+    <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle1"><i class="fa fa-info-circle fa"></i> &nbsp;&nbsp;注意!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalDiv1">
+                    <span>
+                        <h5>使用前请确认一下几点：</h5><br>
+                    > 1. 评价分数均为满分（优）<br>
+                    > 2. 评价内容为固定话语。<br>
+                    > 3. 受于后台程序性能、网络状况和教务系统平台的状态评教可能产生不同结果<br>
+                    > 4. 若教务系统更新可能导致评教失败<br>
+                    > 5. 评教成功后还是请到教务平台核实结果<br>
+                    > 6. 评教过程中请务必耐心等待，笔芯 &#10084<br>
+                    > 7. 希望能及时反馈意见或者bug给我们。感谢支持！！！<br>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer mt-4 text-center">
+    <br><br><br>
+    <p>Copyright&copy2018 | TJPUACM CLUB</p>
+    <p>如果发现bug或者有其他建议，欢迎联系 <a href="mailto:onlinejudge@tjpuacm.cn">onlinejudge@tjpuacm.cn</a></p>
+</footer>
+
+</body>
+</html>
